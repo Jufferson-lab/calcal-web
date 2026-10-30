@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 240" width="100%" height="100%">
+  <defs>
+    <!-- Gradientes Lazo Verde Limón -->
+    <linearGradient id="h-lime-top" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D6EF6E"/>
+      <stop offset="100%" stop-color="#B2D235"/>
+    </linearGradient>
+    <linearGradient id="h-lime-main" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B2D235"/>
+      <stop offset="100%" stop-color="#8FAE1E"/>
+    </linearGradient>
+    <linearGradient id="h-lime-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8FAE1E"/>
+      <stop offset="100%" stop-color="#67800E"/>
+    </linearGradient>
+
+    <!-- Gradientes Lazo Fucsia Láser -->
+    <linearGradient id="h-fuchsia-top" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF528A"/>
+      <stop offset="100%" stop-color="#E01A59"/>
+    </linearGradient>
+    <linearGradient id="h-fuchsia-main" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E01A59"/>
+      <stop offset="100%" stop-color="#B80E42"/>
+    </linearGradient>
+    <linearGradient id="h-fuchsia-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B80E42"/>
+      <stop offset="100%" stop-color="#7C0428"/>
+    </linearGradient>
+
+    <style>
+      .wm-carbon { fill: #1A1F24; }
+      .laser-dot { fill: #E01A59; }
+      .laser-ret { stroke: #E01A59; stroke-width: 1.5; stroke-linecap: round; }
+      .sub-text { font-family: 'Kumbh Sans', 'Public Sans', sans-serif; font-size: 22px; font-weight: 700; fill: #4A5A6C; letter-spacing: 6px; }
+      .sub-badge { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700; fill: #E01A59; letter-spacing: 2px; }
+    </style>
+  </defs>
+
+  <!-- ================= ISOTIPO INFINITO (Escalado e integrado a la izquierda) ================= -->
+  <g transform="translate(10, 30) scale(0.65)">
+    <!-- Lazo Izquierdo: Verde Limón -->
+    <polygon points="140,40 250,140 220,140 130,68 60,140 100,140" fill="url(#h-lime-top)"/>
+    <path d="M 140,40 C 70,40 20,85 20,140 C 20,195 70,240 140,240 L 155,220 C 95,220 50,185 50,140 C 50,95 95,60 140,60 Z" fill="url(#h-lime-main)"/>
+    <polygon points="20,140 60,140 100,180 60,195 20,140" fill="url(#h-lime-dark)"/>
+    <polygon points="140,240 250,140 225,140 130,218 60,140 50,140" fill="url(#h-lime-top)"/>
+    <polygon points="130,218 225,140 250,140 155,220 140,240" fill="url(#h-lime-dark)"/>
+    <polygon points="210,105 250,140 210,175 180,140" fill="url(#h-lime-main)"/>
+
+    <!-- Lazo Derecho: Fucsia Láser -->
+    <polygon points="340,40 250,140 275,140 350,68 420,140 380,140" fill="url(#h-fuchsia-top)"/>
+    <path d="M 340,40 C 410,40 460,85 460,140 C 460,195 410,240 340,240 L 325,220 C 385,220 430,185 430,140 C 430,95 385,60 340,60 Z" fill="url(#h-fuchsia-main)"/>
+    <polygon points="460,140 420,140 380,180 420,195 460,140" fill="url(#h-fuchsia-dark)"/>
+    <polygon points="340,240 250,140 275,140 350,218 420,140 430,140" fill="url(#h-fuchsia-top)"/>
+    <polygon points="350,218 275,140 250,140 325,220 340,240" fill="url(#h-fuchsia-dark)"/>
+    <polygon points="290,105 250,140 290,175 320,140" fill="url(#h-fuchsia-main)"/>
+
+    <!-- Aristas de luz -->
+    <line x1="140" y1="40" x2="250" y2="140" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.8"/>
+    <line x1="340" y1="40" x2="250" y2="140" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.8"/>
+    <circle cx="250" cy="140" r="6" fill="#FFFFFF"/>
+  </g>
+
+  <!-- ================= WORDMARK CAL CAL ================= -->
+  <g transform="translate(340, 20)">
+    <!-- Letra C -->
+    <path class="wm-carbon" d="M 85 30 L 71 42 C 65 35 58 32 49 32 C 33 32 21 44 21 61 C 21 78 33 90 49 90 C 58 90 65 87 71 80 L 85 92 C 76 102 64 107 49 107 C 22 107 2 86 2 61 C 2 36 22 15 49 15 C 64 15 76 21 85 30 Z"/>
+
+    <!-- Letra A con Diana -->
+    <g transform="translate(98, 0)">
+      <path class="wm-carbon" d="M 35 15 L 68 106 L 50 106 L 43 86 L 27 86 L 20 106 L 2 106 L 35 15 Z M 35 40 L 30 72 L 40 72 L 35 40 Z"/>
+      <circle cx="35" cy="57" r="4" class="laser-dot"/>
+      <line x1="35" y1="48" x2="35" y2="51" class="laser-ret"/>
+      <line x1="35" y1="63" x2="35" y2="66" class="laser-ret"/>
+      <line x1="26" y1="57" x2="29" y2="57" class="laser-ret"/>
+      <line x1="41" y1="57" x2="44" y2="57" class="laser-ret"/>
+    </g>
+
+    <!-- Letra L -->
+    <path class="wm-carbon" d="M 180 16 L 198 16 L 198 90 L 236 90 L 236 106 L 180 106 Z"/>
+
+    <!-- Separador Diamante Verde Limón -->
+    <rect x="254" y="56" width="10" height="10" rx="1.5" fill="#B2D235" transform="rotate(45 259 61)"/>
+
+    <!-- Letra C -->
+    <path class="wm-carbon" d="M 365 30 L 351 42 C 345 35 338 32 329 32 C 313 32 301 44 301 61 C 301 78 313 90 329 90 C 338 90 345 87 351 80 L 365 92 C 356 102 344 107 329 107 C 302 107 282 86 282 61 C 282 36 302 15 329 15 C 344 15 356 21 365 30 Z"/>
+
+    <!-- Letra A con Diana -->
+    <g transform="translate(378, 0)">
+      <path class="wm-carbon" d="M 35 15 L 68 106 L 50 106 L 43 86 L 27 86 L 20 106 L 2 106 L 35 15 Z M 35 40 L 30 72 L 40 72 L 35 40 Z"/>
+      <circle cx="35" cy="57" r="4" class="laser-dot"/>
+      <line x1="35" y1="48" x2="35" y2="51" class="laser-ret"/>
+      <line x1="35" y1="63" x2="35" y2="66" class="laser-ret"/>
+      <line x1="26" y1="57" x2="29" y2="57" class="laser-ret"/>
+      <line x1="41" y1="57" x2="44" y2="57" class="laser-ret"/>
+    </g>
+
+    <!-- Letra L -->
+    <path class="wm-carbon" d="M 460 16 L 478 16 L 478 90 L 516 90 L 516 106 L 460 106 Z"/>
+  </g>
+
+  <!-- ================= LÍNEA DIVISORIA DE PRECISIÓN ================= -->
+  <line x1="340" y1="145" x2="900" y2="145" stroke="#E01A59" stroke-width="2"/>
+  <rect x="340" y="143" width="80" height="6" fill="#B2D235"/>
+
+  <!-- ================= SUBTÍTULO OFICIAL DE LABORATORIO ================= -->
+  <text x="340" y="182" class="sub-text">LABORATORIO DE CALIBRACIÓN</text>
+  <text x="340" y="210" class="sub-badge">ISO/IEC 17025:2017 · ACREDITACIÓN ONAC</text>
+</svg>

@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Incertidumbre & Módulo de Capacitación — CALCAL</title>
+  
+  <!-- Tipografías y librerías Oficiales CAL CAL -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;500;600;700;800;900&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#14181C',      /* Carbon Base Profundo */
+              slate: '#1E252D',     /* Carbon Slate Medio */
+              cyan: '#B2D235',      /* Precision Lime Oficial */
+              ember: '#E01A59',     /* Laser Fuchsia Oficial */
+              platinum: '#F4F6F8'   /* Lab Pearl Gray Oficial */
+            }
+          },
+          fontFamily: {
+            outfit: ['Kumbh Sans', 'sans-serif'],
+            sans: ['Public Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Estilos personalizados SGC CAL CAL */
+    .glass-card {
+      background: rgba(30, 37, 45, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(178, 210, 53, 0.25);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #14181C;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #252D37;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #B2D235;
+    }
+    input[type=range] {
+      accent-color: #B2D235;
+    }
+    @media print {
+      body { background: white !important; color: black !important; }
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      .glass-card { background: white !important; border: 1px solid #ccc !important; color: black !important; }
+    }
+  </style>
+</head>
+<body class="bg-brand-navy text-slate-100 font-sans min-h-screen flex flex-col custom-scrollbar">
+
+  <!-- CABECERA PRINCIPAL -->
+  <header class="bg-brand-navy/95 border-b border-brand-slate/80 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Marca & Logo Oficial -->
+      <div class="flex items-center space-x-4">
+        <img src="logo_calcal_oficial.jpg" alt="CALCAL Logo Oficial" class="h-12 w-auto object-contain rounded-lg p-1 bg-white/5 border border-brand-cyan/40">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-outfit font-extrabold text-2xl tracking-tight text-white"><span style="color: #E01A59;">C</span>AL <span style="color: #B2D235;">C</span>AL</span>
+            <span class="text-xs bg-brand-cyan/20 text-brand-cyan font-outfit font-bold px-2 py-0.5 rounded border border-brand-cyan/30">ISO/IEC 17025</span>
+          </div>
+          <p class="text-xs text-slate-400 font-medium hidden sm:block">Laboratorio de Calibración & Metrología Digital</p>
+        </div>
+      </div>
+
+      <!-- Navegación por Pestañas -->
+      <nav class="flex space-x-1 sm:space-x-2 bg-brand-slate/60 p-1.5 rounded-xl border border-brand-slate/70">
+        <button onclick="setTab('simulador')" id="tab-btn-simulador" class="tab-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center space-x-2 bg-brand-cyan text-white shadow-lg shadow-brand-cyan/20">
+          <i class="fa-solid fa-calculator"></i>
+          <span>Simulador GUM</span>
+        </button>
+        <button onclick="setTab('capacitacion')" id="tab-btn-capacitacion" class="tab-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center space-x-2 text-slate-300 hover:text-white hover:bg-brand-slate/60">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Capacitación</span>
+        </button>
+        <button onclick="setTab('temperatura')" id="tab-btn-temperatura" class="tab-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center space-x-2 text-slate-300 hover:text-white hover:bg-brand-slate/60">
+          <i class="fa-solid fa-temperature-arrow-up text-brand-ember"></i>
+          <span>Caso Temperatura</span>
+        </button>
+        <button onclick="setTab('evaluacion')" id="tab-btn-evaluacion" class="tab-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center space-x-2 text-slate-300 hover:text-white hover:bg-brand-slate/60">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Autoevaluación</span>
+        </button>
+      </nav>
+
+      <!-- Botón de Exportar / Imprimir -->
+      <div class="hidden lg:flex items-center space-x-3">
+        <button onclick="window.print()" class="px-3 py-1.5 rounded-lg border border-slate-600 text-xs font-medium text-slate-300 hover:text-white hover:bg-brand-slate/50 transition">
+          <i class="fa-solid fa-print mr-1.5"></i> Imprimir Reporte
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ================================================================= -->
+    <!-- PESTAÑA 1: SIMULADOR INTERACTIVO GUM                              -->
+    <!-- ================================================================= -->
+    <div id="view-simulador" class="tab-content space-y-6">
+
+      <!-- Panel de Control y Selección de Magnitud -->
+      <div class="glass-card rounded-2xl p-5 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold text-brand-cyan tracking-wider uppercase font-mono">Motor de Incertidumbre GUM (JCGM 100:2008)</span>
+            <h1 class="text-2xl font-outfit font-bold text-white mt-1">Simulador Dinámico de Presupuesto de Incertidumbre</h1>
+            <p class="text-xs text-slate-300 mt-0.5">Modifica los deslizadores en tiempo real para observar el análisis de Pareto y la propagación de varianza.</p>
+          </div>
+          
+          <!-- Selector de Preset / Magnitud -->
+          <div class="flex items-center space-x-2 bg-brand-navy/80 p-2 rounded-xl border border-brand-slate">
+            <span class="text-xs font-semibold text-slate-400 pl-1"><i class="fa-solid fa-sliders mr-1 text-brand-cyan"></i> Magnitud:</span>
+            <select id="presetSelector" onchange="loadPreset(this.value)" class="bg-brand-slate text-white text-xs font-bold rounded-lg px-3 py-1.5 border border-brand-cyan/40 focus:outline-none focus:ring-2 focus:ring-brand-cyan">
+              <option value="temperatura" selected>🔥 Temperatura (°C) — CALCAL Acreditada</option>
+              <option value="presion">💨 Presión (bar) — Manómetros Digitales</option>
+              <option value="masa">⚖️ Masa (g) — Balanzas y Pesas</option>
+              <option value="personalizado">🛠️ Modo General / Personalizado</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Métricas Clave de Resultado en Tiempo Real (KPI Cards) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Incertidumbre Estándar Combinada uc -->
+        <div class="bg-gradient-to-br from-brand-slate/80 to-brand-navy border border-brand-cyan/30 rounded-2xl p-5 shadow-lg relative overflow-hidden">
+          <div class="absolute -right-3 -top-3 w-16 h-16 bg-brand-cyan/10 rounded-full blur-xl pointer-events-none"></div>
+          <div class="flex items-center justify-between text-xs font-medium text-slate-400">
+            <span>Incertidumbre Combinada</span>
+            <span class="font-mono text-brand-cyan text-sm">u_c</span>
+          </div>
+          <div class="mt-2 flex items-baseline space-x-2">
+            <span id="kpi-uc" class="text-3xl font-outfit font-extrabold text-white">0.0000</span>
+            <span id="unit-label-1" class="text-sm font-mono text-brand-cyan font-bold">°C</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center">
+            <i class="fa-solid fa-square-root-variable text-brand-cyan mr-1.5"></i>
+            <span>u_c = √(Σ c_i² · u_i²)</span>
+          </div>
+        </div>
+
+        <!-- Factor de Cobertura k -->
+        <div class="bg-gradient-to-br from-brand-slate/80 to-brand-navy border border-brand-slate rounded-2xl p-5 shadow-lg">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-400">
+            <span>Factor de Cobertura</span>
+            <span class="font-mono text-slate-300 text-sm">k (p = 95%)</span>
+          </div>
+          <div class="mt-2 flex items-baseline space-x-2">
+            <span id="kpi-k" class="text-3xl font-outfit font-extrabold text-amber-400">2.00</span>
+            <span id="kpi-nueff" class="text-xs font-mono text-slate-400">(v_eff: ∞)</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center">
+            <i class="fa-solid fa-chart-line text-amber-400 mr-1.5"></i>
+            <span id="kpi-k-origin">Student-t / Welch-Satterthwaite</span>
+          </div>
+        </div>
+
+        <!-- Incertidumbre Expandida U -->
+        <div class="bg-gradient-to-br from-brand-slate/80 to-brand-navy border border-brand-ember/40 rounded-2xl p-5 shadow-lg relative overflow-hidden">
+          <div class="absolute -right-3 -top-3 w-16 h-16 bg-brand-ember/10 rounded-full blur-xl pointer-events-none"></div>
+          <div class="flex items-center justify-between text-xs font-medium text-slate-400">
+            <span>Incertidumbre Expandida</span>
+            <span class="font-mono text-brand-ember font-bold text-sm">U (k·u_c)</span>
+          </div>
+          <div class="mt-2 flex items-baseline space-x-2">
+            <span id="kpi-U" class="text-3xl font-outfit font-extrabold text-brand-ember">0.0000</span>
+            <span id="unit-label-2" class="text-sm font-mono text-brand-ember font-bold">°C</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center">
+            <i class="fa-solid fa-bullseye text-brand-ember mr-1.5"></i>
+            <span>Nivel de confianza aprox. 95%</span>
+          </div>
+        </div>
+
+        <!-- Fuente Dominante (Pareto Winner) -->
+        <div class="bg-gradient-to-br from-brand-slate/80 to-brand-navy border border-purple-500/30 rounded-2xl p-5 shadow-lg">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-400">
+            <span>Fuente Dominante</span>
+            <span class="text-xs bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded font-bold">Pareto</span>
+          </div>
+          <div class="mt-2 truncate">
+            <span id="kpi-dominante-nombre" class="text-lg font-outfit font-bold text-white block truncate">Calculando...</span>
+            <span id="kpi-dominante-pct" class="text-xs font-mono text-purple-400 font-semibold">0.0% de la varianza</span>
+          </div>
+          <div class="mt-2 text-[11px] text-slate-400 flex items-center">
+            <i class="fa-solid fa-arrow-trend-up text-purple-400 mr-1.5"></i>
+            <span>Enfoque prioritario de mejora</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ZONA DE TRABAJO: SLIDERS A LA IZQUIERDA | GRÁFICOS A LA DERECHA -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Columna Izquierda: Entradas y Sliders de Fuentes (7 Cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="glass-card rounded-2xl p-5 shadow-xl">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-brand-slate/60">
+              <h2 class="text-base font-outfit font-bold text-white flex items-center">
+                <i class="fa-solid fa-sliders text-brand-cyan mr-2"></i> Fuentes de Incertidumbre
+              </h2>
+              <button onclick="agregarFuentePersonalizada()" class="text-xs bg-brand-cyan/20 hover:bg-brand-cyan/30 text-brand-cyan font-bold px-3 py-1.5 rounded-lg border border-brand-cyan/40 transition flex items-center space-x-1">
+                <i class="fa-solid fa-plus text-[10px]"></i>
+                <span>Añadir Fuente</span>
+              </button>
+            </div>
+
+            <!-- Contenedor dinámico de fuentes de incertidumbre -->
+            <div id="fuentes-container" class="space-y-4">
+              <!-- Se llena por JavaScript -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Gráficos y Análisis Visual (5 Cols) -->
+        <div class="lg:col-span-5 space-y-6">
+
+          <!-- Gráfico 1: Pareto de Contribución Relativa (% Varianza) -->
+          <div class="glass-card rounded-2xl p-5 shadow-xl">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-outfit font-bold text-white flex items-center">
+                <i class="fa-solid fa-chart-pie text-brand-cyan mr-2"></i> Contribución a la Varianza (%)
+              </h3>
+              <span class="text-[11px] font-mono text-slate-400">u_i² / u_c²</span>
+            </div>
+            <div class="h-56 relative">
+              <canvas id="chartDonut"></canvas>
+            </div>
+          </div>
+
+          <!-- Gráfico 2: Diagrama de Barras de Incertidumbres Estándar -->
+          <div class="glass-card rounded-2xl p-5 shadow-xl">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-outfit font-bold text-white flex items-center">
+                <i class="fa-solid fa-chart-simple text-purple-400 mr-2"></i> Magnitud de Cada Aporte [u_i(y)]
+              </h3>
+              <span class="text-[11px] font-mono text-slate-400">c_i · u_i</span>
+            </div>
+            <div class="h-56 relative">
+              <canvas id="chartBar"></canvas>
+            </div>
+          </div>
+
+          <!-- Gráfico 3: Campana de Gauss (Distribución Combinada y Expandida) -->
+          <div class="glass-card rounded-2xl p-5 shadow-xl">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-outfit font-bold text-white flex items-center">
+                <i class="fa-solid fa-bell text-amber-400 mr-2"></i> Curva de Probabilidad Combinada
+              </h3>
+              <span class="text-[11px] font-mono text-slate-400">N(y, u_c²)</span>
+            </div>
+            <div class="h-44 relative">
+              <canvas id="chartGauss"></canvas>
+            </div>
+            <div class="mt-2 flex justify-between text-[11px] font-mono text-slate-400 px-2">
+              <span class="text-brand-cyan font-bold">-U</span>
+              <span class="text-slate-300 font-bold">-u_c</span>
+              <span class="text-white font-bold">Y (Valor Central)</span>
+              <span class="text-slate-300 font-bold">+u_c</span>
+              <span class="text-brand-cyan font-bold">+U</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- TABLA DE BALANCE DE INCERTIDUMBRE (ESTÁNDAR ISO/IEC 17025) -->
+      <div class="glass-card rounded-2xl p-5 shadow-xl overflow-hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-3 border-b border-brand-slate/60">
+          <div>
+            <h2 class="text-base font-outfit font-bold text-white flex items-center">
+              <i class="fa-solid fa-table text-brand-cyan mr-2"></i> Tabla de Balance de Incertidumbre (GUM Table)
+            </h2>
+            <p class="text-xs text-slate-400">Estructura normalizada para auditorías de acreditación bajo ISO/IEC 17025.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="exportarCSV()" class="px-3 py-1.5 bg-brand-slate hover:bg-brand-cyan/30 text-xs font-semibold rounded-lg border border-brand-slate text-slate-200 transition">
+              <i class="fa-solid fa-file-csv mr-1 text-green-400"></i> Exportar CSV
+            </button>
+            <button onclick="copiarTablaPortapapeles()" class="px-3 py-1.5 bg-brand-slate hover:bg-brand-cyan/30 text-xs font-semibold rounded-lg border border-brand-slate text-slate-200 transition">
+              <i class="fa-solid fa-copy mr-1 text-brand-cyan"></i> Copiar Tabla
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto custom-scrollbar">
+          <table id="tabla-balance" class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-brand-navy/90 text-slate-300 font-mono border-b border-brand-slate uppercase text-[11px]">
+                <th class="py-3 px-3">Fuente de Incertidumbre</th>
+                <th class="py-3 px-2">Tipo</th>
+                <th class="py-3 px-2">Distribución</th>
+                <th class="py-3 px-3 text-right">Semi-amplitud (a)</th>
+                <th class="py-3 px-2 text-center">Divisor</th>
+                <th class="py-3 px-3 text-right">Incert. Estándar u(x_i)</th>
+                <th class="py-3 px-2 text-center">Coef. c_i</th>
+                <th class="py-3 px-3 text-right font-bold text-brand-cyan">Aporte u_i(y)</th>
+                <th class="py-3 px-2 text-center">Grados v_i</th>
+                <th class="py-3 px-3 text-right font-bold text-purple-300">% Varianza</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-balance-body" class="divide-y divide-brand-slate/40 font-mono text-slate-300">
+              <!-- Llenado por JS -->
+            </tbody>
+            <tfoot class="bg-brand-navy/95 font-mono text-xs border-t-2 border-brand-cyan font-bold text-white">
+              <tr>
+                <td colspan="7" class="py-3 px-3 text-right uppercase tracking-wider">Incertidumbre Estándar Combinada (u_c):</td>
+                <td id="tfoot-uc" class="py-3 px-3 text-right text-brand-cyan font-extrabold text-sm">0.0000</td>
+                <td id="tfoot-nueff" class="py-3 px-2 text-center text-slate-400">∞</td>
+                <td class="py-3 px-3 text-right text-purple-300 font-bold">100.0%</td>
+              </tr>
+              <tr>
+                <td colspan="7" class="py-3 px-3 text-right uppercase tracking-wider text-brand-ember">Incertidumbre Expandida U (k = <span id="tfoot-k">2.00</span>, p=95%):</td>
+                <td id="tfoot-U" class="py-3 px-3 text-right text-brand-ember font-extrabold text-base">± 0.0000</td>
+                <td colspan="2" class="py-3 px-3 text-right text-slate-400 font-normal">Formato: y ± U</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- PANEL DE SIMULACIÓN DE MONTE CARLO (JCGM 101:2008 — SUPLEMENTO 1 A LA GUM) -->
+      <div class="glass-card rounded-2xl p-5 shadow-xl border-l-4 border-brand-cyan">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 mb-4 border-b border-brand-slate/60">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-[11px] font-mono font-bold bg-brand-cyan/20 text-brand-cyan px-2 py-0.5 rounded border border-brand-cyan/40">JCGM 101:2008 Cláusula 8</span>
+              <h2 class="text-base font-outfit font-bold text-white">Simulación de Monte Carlo — Propagación de Distribuciones</h2>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">
+              Compara la aproximación lineal de Taylor (GUM JCGM 100) frente a la convolución numérica de densidades de probabilidad ($M = 100\,000$ ensayos) para detectar efectos trapezoidales cuando dominan fuentes rectangulares.
+            </p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <select id="mc-trials-select" class="bg-brand-slate text-white text-xs font-mono font-bold rounded-lg px-3 py-1.5 border border-brand-slate">
+              <option value="50000">M = 50,000 ensayos</option>
+              <option value="100000" selected>M = 100,000 ensayos</option>
+              <option value="250000">M = 250,000 ensayos</option>
+            </select>
+            <button onclick="ejecutarMonteCarloWeb()" class="px-4 py-1.5 bg-brand-cyan hover:bg-brand-cyan/80 text-brand-navy font-bold text-xs rounded-lg shadow-lg transition flex items-center space-x-1.5">
+              <i class="fa-solid fa-dice"></i>
+              <span>Simular Monte Carlo</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-brand-navy/70 p-3.5 rounded-xl border border-brand-slate">
+            <div class="text-[11px] text-slate-400 font-mono">Incertidumbre Estándar u(y) MC</div>
+            <div id="mc-kpi-uy" class="text-xl font-outfit font-extrabold text-white mt-1">0.0000</div>
+            <div class="text-[10px] text-slate-400 font-mono mt-0.5">Desv. estándar de M ensayos</div>
+          </div>
+          <div class="bg-brand-navy/70 p-3.5 rounded-xl border border-brand-slate">
+            <div class="text-[11px] text-slate-400 font-mono">Intervalo Más Corto 95.45% (U_MC)</div>
+            <div id="mc-kpi-U" class="text-xl font-outfit font-extrabold text-brand-cyan mt-1">± 0.0000</div>
+            <div id="mc-kpi-keq" class="text-[10px] text-slate-400 font-mono mt-0.5">k_eq = 2.000</div>
+          </div>
+          <div class="bg-brand-navy/70 p-3.5 rounded-xl border border-brand-slate">
+            <div class="text-[11px] text-slate-400 font-mono">Tolerancia Numérica δ (JCGM 101 §8)</div>
+            <div id="mc-kpi-delta" class="text-xl font-outfit font-extrabold text-amber-400 mt-1">δ = 0.0005</div>
+            <div id="mc-kpi-dmax" class="text-[10px] text-slate-400 font-mono mt-0.5">d_max = |U_GUM - U_MC|</div>
+          </div>
+          <div class="bg-brand-navy/70 p-3.5 rounded-xl border border-brand-slate">
+            <div class="text-[11px] text-slate-400 font-mono">Dictamen Validación GUM (§8.2)</div>
+            <div id="mc-kpi-status" class="text-sm font-outfit font-extrabold text-emerald-400 mt-1.5">GUM VALIDADA</div>
+            <div id="mc-kpi-diffpct" class="text-[10px] text-slate-300 font-mono mt-0.5">Diferencia: 0.0%</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- PESTAÑA 2: MÓDULO DE CAPACITACIÓN METROLÓGICA                     -->
+    <!-- ================================================================= -->
+    <div id="view-capacitacion" class="tab-content hidden space-y-6">
+
+      <div class="glass-card rounded-2xl p-6 shadow-xl border-l-4 border-brand-cyan">
+        <span class="text-xs font-bold text-brand-cyan uppercase font-mono">Guía Didáctica de Metrología Digital</span>
+        <h1 class="text-2xl font-outfit font-extrabold text-white mt-1">Fundamentos de Incertidumbre de Medición (ISO/IEC 17025 & GUM)</h1>
+        <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+          Diseñado para el entrenamiento de técnicos, metrólogos y auditores de **CALCAL**. Aprende a estructurar presupuestos de incertidumbre rigurosos, distinguir entre evaluaciones Tipo A y Tipo B y calcular los grados efectivos de libertad.
+        </p>
+      </div>
+
+      <!-- Grid de Lecciones -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Lección 1 -->
+        <div class="bg-brand-slate/40 border border-brand-slate rounded-2xl p-5 space-y-3">
+          <div class="flex items-center space-x-3 text-brand-cyan font-outfit font-bold text-base">
+            <span class="w-7 h-7 rounded-lg bg-brand-cyan/20 flex items-center justify-center text-sm border border-brand-cyan/30">1</span>
+            <h3>¿Por qué el "Error" ya no es suficiente?</h3>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Históricamente se hablaba de "error de medición", pero el error es un valor idealizado que requiere conocer el **valor verdadero** (el cual es filosófica y físicamente incognoscible).
+          </p>
+          <div class="bg-brand-navy/60 p-3 rounded-xl border border-brand-slate text-xs space-y-1 font-mono">
+            <div class="text-slate-400">Resultado Moderno:</div>
+            <div class="text-brand-cyan font-bold text-sm">Y = y ± U (con nivel de confianza del 95%)</div>
+          </div>
+          <p class="text-xs text-slate-400">
+            La <strong>incertidumbre</strong> cuantifica la duda razonable sobre el resultado, delimitando el intervalo donde se encuentra con alta probabilidad el mensurando.
+          </p>
+        </div>
+
+        <!-- Lección 2 -->
+        <div class="bg-brand-slate/40 border border-brand-slate rounded-2xl p-5 space-y-3">
+          <div class="flex items-center space-x-3 text-brand-cyan font-outfit font-bold text-base">
+            <span class="w-7 h-7 rounded-lg bg-brand-cyan/20 flex items-center justify-center text-sm border border-brand-cyan/30">2</span>
+            <h3>Evaluación Tipo A: Métodos Estadísticos</h3>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Se calcula a partir de observaciones repetidas bajo condiciones de repetibilidad o reproducibilidad. Se basa en la **desviación estándar experimental de la media**:
+          </p>
+          <div class="bg-brand-navy/60 p-3 rounded-xl border border-brand-slate text-xs space-y-1 font-mono text-center">
+            <div class="text-amber-400 font-bold text-sm">u_A = s / √n</div>
+            <div class="text-slate-400 text-[11px]">s = desviación estándar muestral | n = número de réplicas</div>
+          </div>
+          <p class="text-xs text-slate-400">
+            <strong>Grados de libertad:</strong> Para una evaluación Tipo A, siempre son finitos: <code class="text-brand-cyan">v = n - 1</code>.
+          </p>
+        </div>
+
+        <!-- Lección 3 -->
+        <div class="bg-brand-slate/40 border border-brand-slate rounded-2xl p-5 space-y-3">
+          <div class="flex items-center space-x-3 text-brand-cyan font-outfit font-bold text-base">
+            <span class="w-7 h-7 rounded-lg bg-brand-cyan/20 flex items-center justify-center text-sm border border-brand-cyan/30">3</span>
+            <h3>Evaluación Tipo B: Distribuciones de Probabilidad</h3>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Información proveniente de certificados de calibración previos, especificaciones del fabricante, manuales o experiencia metrológica:
+          </p>
+          <div class="space-y-2 text-xs font-mono">
+            <div class="flex justify-between bg-brand-navy/70 p-2 rounded-lg border border-brand-slate/60">
+              <span class="text-white font-bold">Normal (Certificados con k):</span>
+              <span class="text-brand-cyan">u = U / k (generalmente k = 2)</span>
+            </div>
+            <div class="flex justify-between bg-brand-navy/70 p-2 rounded-lg border border-brand-slate/60">
+              <span class="text-white font-bold">Rectangular (Resolución, Deriva):</span>
+              <span class="text-amber-400">u = a / √3  o  R / (2√3)</span>
+            </div>
+            <div class="flex justify-between bg-brand-navy/70 p-2 rounded-lg border border-brand-slate/60">
+              <span class="text-white font-bold">Triangular (Filtros, Simetría):</span>
+              <span class="text-emerald-400">u = a / √6</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lección 4 -->
+        <div class="bg-brand-slate/40 border border-brand-slate rounded-2xl p-5 space-y-3">
+          <div class="flex items-center space-x-3 text-brand-cyan font-outfit font-bold text-base">
+            <span class="w-7 h-7 rounded-lg bg-brand-cyan/20 flex items-center justify-center text-sm border border-brand-cyan/30">4</span>
+            <h3>Ley de Propagación de Incertidumbres</h3>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Cuando las variables de entrada no están correlacionadas, la incertidumbre combinada es la raíz cuadrada de la suma cuadrática de los aportes individuales multiplicados por sus coeficientes de sensibilidad:
+          </p>
+          <div class="bg-brand-navy/60 p-3 rounded-xl border border-brand-slate text-xs space-y-1 font-mono text-center">
+            <div class="text-brand-cyan font-bold text-sm">u_c² = Σ [ c_i · u(x_i) ]²</div>
+            <div class="text-slate-400 text-[11px]">c_i = ∂f / ∂x_i (derivadas parciales de la función de medición)</div>
+          </div>
+          <p class="text-xs text-slate-400">
+            En calibraciones directas por comparación (como termómetros), normalmente todos los coeficientes <code class="text-brand-cyan">c_i = 1</code> o <code class="text-brand-cyan">-1</code>. En transductores eléctricos (Pt100 en Ω o Termopares en mV), <code class="text-brand-cyan">c_R = ∂T/∂R ≈ 2.59 °C/Ω</code>.
+          </p>
+        </div>
+
+        <!-- Lección 5 -->
+        <div class="bg-brand-slate/40 border border-brand-slate rounded-2xl p-5 space-y-3">
+          <div class="flex items-center space-x-3 text-brand-cyan font-outfit font-bold text-base">
+            <span class="w-7 h-7 rounded-lg bg-brand-cyan/20 flex items-center justify-center text-sm border border-brand-cyan/30">5</span>
+            <h3>Fórmula de Welch-Satterthwaite</h3>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            ¿Es siempre <code class="text-amber-400">k = 2.00</code>? <strong>No siempre.</strong> Si la incertidumbre está dominada por una prueba Tipo A con pocas mediciones (ej. n = 3 o 4), los grados de libertad son muy bajos y el factor <code class="text-amber-400">k</code> debe aumentar según la distribución t de Student:
+          </p>
+          <div class="bg-brand-navy/60 p-3 rounded-xl border border-brand-slate text-xs space-y-1 font-mono text-center">
+            <div class="text-purple-400 font-bold text-sm">v_eff = u_c⁴ / Σ [ u_i(y)⁴ / v_i ]</div>
+          </div>
+          <p class="text-xs text-slate-400">
+            Si <code class="text-brand-cyan">v_eff ≥ 30</code>, se puede aproximar <code class="text-brand-cyan">k = 2.00</code>. Si es menor, se debe tomar el valor exacto de la tabla t-Student.
+          </p>
+        </div>
+
+        <!-- Lección 6 -->
+        <div class="bg-brand-slate/40 border border-brand-slate rounded-2xl p-5 space-y-3">
+          <div class="flex items-center space-x-3 text-brand-cyan font-outfit font-bold text-base">
+            <span class="w-7 h-7 rounded-lg bg-brand-cyan/20 flex items-center justify-center text-sm border border-brand-cyan/30">6</span>
+            <h3>Regla de Decisión y Declaración de Conformidad</h3>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Bajo **ISO/IEC 17025:2017 (Cláusula 7.8.6)** e **ILAC G8**, cuando un cliente solicita declarar si el equipo "Pasa" o "No Pasa" respecto a una tolerancia (TOL), se debe aplicar una zona de seguridad (Guard Band):
+          </p>
+          <div class="bg-brand-navy/60 p-3 rounded-xl border border-brand-slate text-xs space-y-1 font-mono">
+            <div class="text-emerald-400 font-bold">✓ Conforme Aceptado: |Error| + U ≤ Tolerancia</div>
+            <div class="text-amber-400 font-bold">⚠️ Zona Indeterminada: |Error| &lt; Tol &lt; |Error| + U</div>
+            <div class="text-brand-ember font-bold">✗ No Conforme: |Error| - U &gt; Tolerancia</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- PESTAÑA 3: CASO DE ESTUDIO TEMPERATURA (CALCAL FLAGSHIP)          -->
+    <!-- ================================================================= -->
+    <div id="view-temperatura" class="tab-content hidden space-y-6">
+
+      <div class="glass-card rounded-2xl p-6 shadow-xl border-l-4 border-brand-ember">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold text-brand-ember uppercase font-mono">Magnitud Acreditada CALCAL</span>
+            <h1 class="text-2xl font-outfit font-extrabold text-white mt-1">Calibración de Termómetros Digitales y Sondas Pt100 (IEC 60751 / ITS-90)</h1>
+            <p class="text-sm text-slate-300 mt-1">Procedimiento técnico SOP-MET-TERM-01 | Medios isotermos, Derivadas Parciales $c_i$ y Ajuste de Curvas Callendar-Van Dusen.</p>
+          </div>
+          <button onclick="cargarCasoTemperaturaCompleto()" class="px-4 py-2 bg-brand-ember hover:bg-brand-ember/80 text-white font-bold text-xs rounded-xl shadow-lg transition flex items-center space-x-2">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+            <span>Cargar en Simulador</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Diagrama del Sistema de Medición -->
+      <div class="bg-brand-slate/30 border border-brand-slate rounded-2xl p-5">
+        <h3 class="text-base font-outfit font-bold text-white mb-3 flex items-center">
+          <i class="fa-solid fa-diagram-project text-brand-cyan mr-2"></i> Modelo Matemático de Calibración Térmica
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+          La corrección de calibración del termómetro bajo prueba (UUT) se define por la ecuación de balance:
+        </p>
+
+        <div class="bg-brand-navy p-4 rounded-xl border border-brand-cyan/40 text-center font-mono space-y-2">
+          <div class="text-base text-brand-cyan font-bold">
+            ΔT = T_patrón - T_indicada + δT_res + δT_estab + δT_unif + δT_deriva
+          </div>
+          <p class="text-xs text-slate-400">
+            Donde las variables con "δ" tienen valor esperado cero, pero aportan incertidumbre al sistema.
+          </p>
+        </div>
+
+        <!-- Desglose de las 6 Fuentes Críticas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+          
+          <div class="bg-brand-navy/60 p-4 rounded-xl border border-brand-slate">
+            <div class="text-xs font-bold text-brand-cyan mb-1">1. Incertidumbre del Patrón (u_pat)</div>
+            <p class="text-[11px] text-slate-300">Proviene del certificado trazable del termómetro patrón (RTD Pt100 secundario). Se divide por el factor k reportado (k=2).</p>
+            <span class="inline-block mt-2 text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-mono">Normal (k = 2)</span>
+          </div>
+
+          <div class="bg-brand-navy/60 p-4 rounded-xl border border-brand-slate">
+            <div class="text-xs font-bold text-brand-cyan mb-1">2. Repetibilidad de Lecturas (u_rep)</div>
+            <p class="text-[11px] text-slate-300">Variación aleatoria en n=5 repeticiones a la temperatura de calibración. Evaluada como s / √n.</p>
+            <span class="inline-block mt-2 text-[10px] bg-green-500/20 text-green-300 px-2 py-0.5 rounded font-mono">Tipo A (v = n - 1)</span>
+          </div>
+
+          <div class="bg-brand-navy/60 p-4 rounded-xl border border-brand-slate">
+            <div class="text-xs font-bold text-brand-cyan mb-1">3. Estabilidad del Medio Isotermo (u_est)</div>
+            <p class="text-[11px] text-slate-300">Fluctuación térmica máxima observada en el pozo seco o baño líquido durante el tiempo de medición.</p>
+            <span class="inline-block mt-2 text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono">Rectangular (√3)</span>
+          </div>
+
+          <div class="bg-brand-navy/60 p-4 rounded-xl border border-brand-slate">
+            <div class="text-xs font-bold text-brand-cyan mb-1">4. Uniformidad Axial y Radial (u_unif)</div>
+            <p class="text-[11px] text-slate-300">Gradiente térmico espacial entre los distintos orificios del bloque y a lo largo del pozo de inmersión.</p>
+            <span class="inline-block mt-2 text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono">Rectangular (√3)</span>
+          </div>
+
+          <div class="bg-brand-navy/60 p-4 rounded-xl border border-brand-slate">
+            <div class="text-xs font-bold text-brand-cyan mb-1">5. Resolución del Indicador (u_res)</div>
+            <p class="text-[11px] text-slate-300">Límite de resolución digital del termómetro calibrado. Si es 0.1 °C, el semi-intervalo es a = 0.05 °C.</p>
+            <span class="inline-block mt-2 text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono">Rectangular (2√3)</span>
+          </div>
+
+          <div class="bg-brand-navy/60 p-4 rounded-xl border border-brand-slate">
+            <div class="text-xs font-bold text-brand-cyan mb-1">6. Deriva del Patrón (u_deriva)</div>
+            <p class="text-[11px] text-slate-300">Desviación acumulada por envejecimiento del sensor patrón entre ciclos de calibración externa anuales.</p>
+            <span class="inline-block mt-2 text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono">Rectangular (√3)</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- LABORATORIO AVANZADO: DERIVADAS PARCIALES (c_i) Y CURVAS CALLENDAR-VAN DUSEN / ITS-90 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Card 1: Derivadas Parciales y Coeficientes de Sensibilidad (c_i = ∂T/∂R) -->
+        <div class="glass-card rounded-2xl p-5 shadow-xl space-y-4">
+          <div class="flex items-center justify-between border-b border-brand-slate pb-3">
+            <div>
+              <span class="text-[10px] font-mono font-bold text-brand-cyan uppercase">GUM §5.1.3 — Derivadas Parciales</span>
+              <h3 class="text-base font-outfit font-bold text-white">Calculadora de Coeficientes de Sensibilidad ($c_i = \partial T / \partial x_i$)</h3>
+            </div>
+            <button onclick="inyectarSensibilidadEnSimulador()" class="px-3 py-1.5 bg-brand-cyan/20 hover:bg-brand-cyan/30 text-brand-cyan border border-brand-cyan/40 rounded-lg text-xs font-bold transition">
+              <i class="fa-solid fa-bolt mr-1"></i> Enviar $c_R$ al Simulador
+            </button>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 text-xs">
+            <div>
+              <label class="block text-slate-400 font-mono mb-1">Temp. Nominal (°C)</label>
+              <input id="sens-temp" type="number" step="10" value="100" oninput="calcularSensibilidadRTDWeb()" class="w-full bg-brand-navy border border-brand-slate rounded-lg px-2.5 py-1.5 text-white font-mono font-bold">
+            </div>
+            <div>
+              <label class="block text-slate-400 font-mono mb-1">$R_0$ a 0 °C (Ω)</label>
+              <input id="sens-r0" type="number" step="0.01" value="100.00" oninput="calcularSensibilidadRTDWeb()" class="w-full bg-brand-navy border border-brand-slate rounded-lg px-2.5 py-1.5 text-white font-mono font-bold">
+            </div>
+            <div>
+              <label class="block text-slate-400 font-mono mb-1">Incert. Puente $u(R)$ (Ω)</label>
+              <input id="sens-ur" type="number" step="0.001" value="0.010" oninput="calcularSensibilidadRTDWeb()" class="w-full bg-brand-navy border border-brand-slate rounded-lg px-2.5 py-1.5 text-white font-mono font-bold">
+            </div>
+          </div>
+
+          <div class="bg-brand-navy/80 p-3.5 rounded-xl border border-brand-slate font-mono text-xs space-y-2">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Resistencia IEC 60751 $R(T)$:</span>
+              <span id="sens-out-rt" class="text-white font-bold">138.5055 Ω</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Derivada Directa $\partial R / \partial T$:</span>
+              <span id="sens-out-drdt" class="text-amber-400 font-bold">0.379280 Ω/°C</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Coeficiente Sensibilidad $c_R = \partial T / \partial R$:</span>
+              <span id="sens-out-cr" class="text-brand-cyan font-extrabold">2.636575 °C/Ω</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Coeficiente Respecto a $R_0$ ($c_{R_0} = \partial T / \partial R_0$):</span>
+              <span id="sens-out-cr0" class="text-purple-300 font-bold">-3.651801 °C/Ω</span>
+            </div>
+            <div class="flex justify-between border-t border-brand-slate pt-2">
+              <span class="text-slate-300">Aporte Térmico $|c_R| \cdot u(R)$:</span>
+              <span id="sens-out-aporte" class="text-brand-ember font-extrabold">0.0264 °C</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Ajuste de Curva Callendar-Van Dusen (IEC 60751) & Función ITS-90 -->
+        <div class="glass-card rounded-2xl p-5 shadow-xl space-y-4">
+          <div class="flex items-center justify-between border-b border-brand-slate pb-3">
+            <div>
+              <span class="text-[10px] font-mono font-bold text-brand-ember uppercase">IEC 60751 & ITS-90 (BIPM)</span>
+              <h3 class="text-base font-outfit font-bold text-white">Ajuste Polinómico Callendar-Van Dusen ($R_0, A, B$)</h3>
+            </div>
+            <button onclick="ajustarCurvaCVDWeb()" class="px-3 py-1.5 bg-brand-ember hover:bg-brand-ember/80 text-white rounded-lg text-xs font-bold transition">
+              <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Ajustar Mínimos Cuadrados
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+            <div>
+              <label class="block text-slate-400 mb-1">Temperaturas Patrón (°C, sep. coma)</label>
+              <input id="cvd-temps" type="text" value="0.00, 50.00, 100.00, 150.00, 200.00" class="w-full bg-brand-navy border border-brand-slate rounded-lg px-2.5 py-1.5 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Resistencias Pt100 (Ω, sep. coma)</label>
+              <input id="cvd-res" type="text" value="100.042, 119.442, 138.563, 157.396, 175.939" class="w-full bg-brand-navy border border-brand-slate rounded-lg px-2.5 py-1.5 text-white">
+            </div>
+          </div>
+
+          <div class="bg-brand-navy/80 p-3.5 rounded-xl border border-brand-slate font-mono text-xs space-y-1.5">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Coeficiente $R_0$ (0 °C):</span>
+              <span id="cvd-out-r0" class="text-brand-cyan font-extrabold">100.0420 Ω</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Coeficiente $A$ ($\text{°C}^{-1}$):</span>
+              <span id="cvd-out-a" class="text-white font-bold">3.90830e-3</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Coeficiente $B$ ($\text{°C}^{-2}$):</span>
+              <span id="cvd-out-b" class="text-white font-bold">-5.7750e-7</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Residuo Máximo de Ajuste:</span>
+              <span id="cvd-out-resmk" class="text-emerald-400 font-bold">0.85 mK (0.0008 °C)</span>
+            </div>
+            <div class="flex justify-between border-t border-brand-slate pt-1.5">
+              <span class="text-slate-400">Referencia ITS-90 $W_r(100\text{ °C})$:</span>
+              <span id="cvd-out-wr" class="text-amber-400 font-bold">1.3925967</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- PESTAÑA 4: AUTOEVALUACIÓN INTERACTIVA                             -->
+    <!-- ================================================================= -->
+    <div id="view-evaluacion" class="tab-content hidden space-y-6">
+
+      <div class="glass-card rounded-2xl p-6 shadow-xl border-l-4 border-green-500">
+        <span class="text-xs font-bold text-green-400 uppercase font-mono">Control de Competencia Técnica (ISO 17025 Cláusula 6.2)</span>
+        <h1 class="text-2xl font-outfit font-extrabold text-white mt-1">Cuestionario de Autoevaluación en Incertidumbre</h1>
+        <p class="text-sm text-slate-300 mt-1">Valida tu comprensión teórica y práctica. Obtén retroalimentación inmediata con justificación metrológica.</p>
+      </div>
+
+      <div id="quiz-container" class="space-y-4">
+        <!-- Preguntas dinámicas generadas por JS -->
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <button onclick="calificarQuiz()" class="px-6 py-2.5 bg-brand-cyan hover:bg-brand-cyan/80 text-white font-bold text-sm rounded-xl shadow-lg transition flex items-center space-x-2">
+          <i class="fa-solid fa-check-double"></i>
+          <span>Evaluar Mis Respuestas</span>
+        </button>
+      </div>
+
+      <div id="quiz-resultado" class="hidden glass-card rounded-2xl p-6 shadow-2xl border border-brand-cyan">
+        <!-- Resultado dinámico -->
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-brand-navy border-t border-brand-slate/60 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-3">
+      <div class="flex items-center space-x-2">
+        <span class="font-outfit font-bold text-white">CALCAL — Calibración y Calidad</span>
+        <span>•</span>
+        <span>Módulo de Metrología Digital</span>
+      </div>
+      <div>
+        <span>Desarrollado por <strong class="text-white">Juan Fernando Vélez Granda</strong> con la asistencia de <strong class="text-brand-cyan">Nicolle AI</strong></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================================================================= -->
+  <!-- LÓGICA JAVASCRIPT DEL MOTOR GUM Y GRÁFICOS                        -->
+  <!-- ================================================================= -->
+  <script>
+    // --- ESTADO GLOBAL DEL SIMULADOR ---
+    let currentPreset = 'temperatura';
+    let unidadActual = '°C';
+    let fuentes = [];
+
+    // Presets preconfigurados
+    const PRESETS = {
+      temperatura: {
+        nombre: 'Temperatura (°C) — Calibración Termómetros Digitales',
+        unidad: '°C',
+        fuentes: [
+          { id: 'f1', nombre: 'Repetibilidad del Termómetro (u_A)', tipo: 'A', distribucion: 'normal_a', valor: 0.035, n: 5, divisor: 1, c: 1, v: 4, desc: 'Desviación estándar de 5 lecturas en UUT' },
+          { id: 'f2', nombre: 'Incertidumbre del Patrón (Certificado)', tipo: 'B', distribucion: 'normal_2', valor: 0.030, divisor: 2, c: 1, v: 1000, desc: 'U reportada en certificado del patrón con k=2' },
+          { id: 'f3', nombre: 'Estabilidad del Baño / Pozo Térmico', tipo: 'B', distribucion: 'rectangular', valor: 0.040, divisor: Math.sqrt(3), c: 1, v: 1000, desc: 'Fluctuación de temperatura temporal máxima' },
+          { id: 'f4', nombre: 'Uniformidad Axial/Radial del Bloque', tipo: 'B', distribucion: 'rectangular', valor: 0.050, divisor: Math.sqrt(3), c: 1, v: 1000, desc: 'Gradiente espacial entre orificios del pozo' },
+          { id: 'f5', nombre: 'Resolución del Termómetro (UUT)', tipo: 'B', distribucion: 'rectangular_res', valor: 0.050, divisor: Math.sqrt(3), c: 1, v: 1000, desc: 'Resolución digital 0.1 °C (semi-amplitud 0.05)' },
+          { id: 'f6', nombre: 'Deriva Anual Estimada del Patrón', tipo: 'B', distribucion: 'rectangular', valor: 0.025, divisor: Math.sqrt(3), c: 1, v: 1000, desc: 'Deriva histórica entre calibraciones anuales' }
+        ]
+      },
+      presion: {
+        nombre: 'Presión (bar) — Manómetros Digitales (DKD-R 6-1)',
+        unidad: 'bar',
+        fuentes: [
+          { id: 'f1', nombre: 'Repetibilidad de Lectura (u_A)', tipo: 'A', distribucion: 'normal_a', valor: 0.012, n: 6, divisor: 1, c: 1, v: 5, desc: 'Variabilidad en ciclos de carga y descarga' },
+          { id: 'f2', nombre: 'Incertidumbre del Manómetro Patrón', tipo: 'B', distribucion: 'normal_2', valor: 0.015, divisor: 2, c: 1, v: 1000, desc: 'Incertidumbre expandida U con k=2' },
+          { id: 'f3', nombre: 'Resolución del Instrumento (UUT)', tipo: 'B', distribucion: 'rectangular', valor: 0.005, divisor: Math.sqrt(3), c: 1, v: 1000, desc: 'Paso mínimo del indicador digital' },
+          { id: 'f4', nombre: 'Histéresis del Elemento Sensor', tipo: 'B', distribucion: 'rectangular', valor: 0.010, divisor: Math.sqrt(3), c: 1, v: 1000, desc: 'Diferencia máxima entre ciclo subida y bajada' },
+          { id: 'f5', nombre: 'Efecto de Cabeza Hidrostática (Δh)', tipo: 'B', distribucion: 'triangular', valor: 0.004, divisor: Math.sqrt(6), c: 1, v: 1000, desc: 'Diferencia de altura entre conexiones' }
+        ]
+      },
+      masa: {
+        nombre: 'Masa (g) — Calibración de Balanzas',
+        unidad: 'g',
+        fuentes: [
+          { id: 'f1', nombre: 'Repetibilidad con Carga (u_A)', tipo: 'A', distribucion: 'normal_a', valor: 0.002, n: 10, divisor: 1, c: 1, v: 9, desc: '10 pesadas repetidas al 50% de la capacidad' },
+          { id: 'f2', nombre: 'Incertidumbre de las Pesas Patrón (Clase E2)', tipo: 'B', distribucion: 'normal_2', valor: 0.0015, divisor: 2, c: 1, v: 1000, desc: 'Certificado de calibración de masas trazables' },
+          { id: 'f3', nombre: 'Resolución de la Balanza (d)', tipo: 'B', distribucion: 'rectangular', valor: 0.0005, divisor: Math.sqrt(3), c: 1, v: 1000, desc: 'División mínima de escala d = 0.001 g' },
+          { id: 'f4', nombre: 'Efecto de Excentricidad de Carga', tipo: 'B', distribucion: 'rectangular', valor: 0.0010, divisor: Math.sqrt(3), c: 1, v: 1000, desc: 'Variación en esquinas del plato de pesaje' },
+          { id: 'f5', nombre: 'Empuje del Aire (Flotabilidad)', tipo: 'B', distribucion: 'rectangular', valor: 0.0008, divisor: Math.sqrt(3), c: 1, v: 1000, desc: 'Variación de densidad del aire ambiental' }
+        ]
+      },
+      personalizado: {
+        nombre: 'Modo Personalizado (Cualquier Magnitud)',
+        unidad: 'u.m.',
+        fuentes: [
+          { id: 'f1', nombre: 'Repetibilidad Experimental', tipo: 'A', distribucion: 'normal_a', valor: 0.05, n: 5, divisor: 1, c: 1, v: 4, desc: 'Evaluación Tipo A' },
+          { id: 'f2', nombre: 'Patrón de Calibración', tipo: 'B', distribucion: 'normal_2', valor: 0.04, divisor: 2, c: 1, v: 1000, desc: 'U del certificado con k=2' },
+          { id: 'f3', nombre: 'Resolución del Instrumento', tipo: 'B', distribucion: 'rectangular', valor: 0.02, divisor: Math.sqrt(3), c: 1, v: 1000, desc: 'Semi-amplitud rectangular' }
+        ]
+      }
+    };
+
+    // Preguntas del Cuestionario de Autoevaluación
+    const PREGUNTAS_QUIZ = [
+      {
+        q: '1. En una evaluación de incertidumbre Tipo A con 5 mediciones repetidas, ¿cuáles son los grados de libertad v?',
+        opciones: ['v = 5', 'v = 4 (n - 1)', 'v = ∞', 'v = 2'],
+        correcta: 1,
+        explicacion: 'En la estadística clásica de la GUM, los grados de libertad para la varianza muestral de n observaciones son siempre v = n - 1. Para n=5, v = 4.'
+      },
+      {
+        q: '2. Si un instrumento digital tiene una resolución de 0.1 °C, ¿cuál es su incertidumbre estándar por resolución bajo distribución rectangular?',
+        opciones: ['u = 0.1 / √3 = 0.0577 °C', 'u = (0.1 / 2) / √3 = 0.05 / 1.732 = 0.0289 °C', 'u = 0.1 °C', 'u = 0.1 / 2 = 0.05 °C'],
+        correcta: 1,
+        explicacion: 'La semi-amplitud del intervalo de redondeo es a = Resolución / 2 = 0.05 °C. Al dividir por √3, la incertidumbre estándar es 0.0289 °C (equivalente a R / √12).'
+      },
+      {
+        q: '3. Si el presupuesto de incertidumbre está dominado en un 90% por la repetibilidad (n=3, v=2), ¿qué valor debe tomar el factor k para un 95% de confianza?',
+        opciones: ['k = 2.00 exactamente', 'k = 1.00', 'k = 4.30 (según t de Student con v=2)', 'k = 3.00'],
+        correcta: 2,
+        explicacion: 'Con muy pocos grados de libertad efectivos (veff ≈ 2), no se puede asumir k=2.00 de la distribución normal; la t de Student exige k ≈ 4.30 para garantizar el 95% de cobertura.'
+      },
+      {
+        q: '4. ¿Qué ventaja técnica aporta analizar el diagrama de Pareto de varianza en un presupuesto de incertidumbre?',
+        opciones: [
+          'Permite eliminar fuentes de incertidumbre arbitrariamente.',
+          'Identifica cuál fuente aporta el mayor porcentaje cuadrático, orientando los recursos de inversión y mejora.',
+          'Obliga a cambiar los termómetros patrones.',
+          'Garantiza que el error sea cero.'
+        ],
+        correcta: 1,
+        explicacion: 'El análisis de Pareto demuestra qué fuente gobierna la varianza combinada. Reducir fuentes secundarias que aportan menos del 2% no impacta el resultado global, mientras que mejorar la fuente dominante reduce drásticamente la incertidumbre expandida.'
+      }
+    ];
+
+    // Variables de los gráficos Chart.js
+    let chartDonut = null;
+    let chartBar = null;
+    let chartGauss = null;
+
+    // --- INICIALIZACIÓN ---
+    window.addEventListener('DOMContentLoaded', () => {
+      initCharts();
+      loadPreset('temperatura');
+      renderQuiz();
+    });
+
+    // --- GESTIÓN DE PESTAÑAS ---
+    function setTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-cyan', 'text-white', 'shadow-lg', 'shadow-brand-cyan/20');
+        btn.classList.add('text-slate-300');
+      });
+
+      const activeView = document.getElementById(`view-${tabId}`);
+      const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+      if (activeView) activeView.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.classList.add('bg-brand-cyan', 'text-white', 'shadow-lg', 'shadow-brand-cyan/20');
+        activeBtn.classList.remove('text-slate-300');
+      }
+
+      // Reajustar gráficos si se vuelve al simulador
+      if (tabId === 'simulador' && chartDonut) {
+        chartDonut.resize();
+        chartBar.resize();
+        chartGauss.resize();
+      }
+    }
+
+    // --- CARGA DE PRESETS ---
+    function loadPreset(key) {
+      currentPreset = key;
+      const data = PRESETS[key] || PRESETS.temperatura;
+      unidadActual = data.unidad;
+      
+      // Actualizar etiquetas de unidades
+      document.getElementById('unit-label-1').innerText = unidadActual;
+      document.getElementById('unit-label-2').innerText = unidadActual;
+
+      // Clonar fuentes profundamente
+      fuentes = JSON.parse(JSON.stringify(data.fuentes));
+
+      renderFuentesSliders();
+      calcularGUM();
+    }
+
+    function cargarCasoTemperaturaCompleto() {
+      setTab('simulador');
+      document.getElementById('presetSelector').value = 'temperatura';
+      loadPreset('temperatura');
+    }
+
+    // --- RENDERIZADO DE SLIDERS DE FUENTES ---
+    function renderFuentesSliders() {
+      const container = document.getElementById('fuentes-container');
+      container.innerHTML = '';
+
+      fuentes.forEach((f, idx) => {
+        const div = document.createElement('div');
+        div.className = "bg-brand-navy/60 p-4 rounded-xl border border-brand-slate/60 hover:border-brand-cyan/40 transition space-y-2.5";
+        
+        // Determinar límites de slider
+        const maxVal = (f.valor * 3 > 0.5) ? (f.valor * 3).toFixed(3) : 0.5;
+        const stepVal = f.valor < 0.01 ? 0.0005 : 0.001;
+
+        div.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-bold ${f.tipo === 'A' ? 'text-green-400 bg-green-500/10' : 'text-brand-cyan bg-brand-cyan/10'} px-2 py-0.5 rounded border border-current font-mono">
+                Tipo ${f.tipo}
+              </span>
+              <span class="text-xs font-bold text-white font-outfit">${f.nombre}</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <input type="number" step="${stepVal}" value="${f.valor}" onchange="updateFuenteValor(${idx}, this.value)" 
+                     class="w-24 bg-brand-slate text-right text-xs font-mono font-bold text-white px-2 py-1 rounded border border-brand-slate focus:border-brand-cyan focus:outline-none">
+              <span class="text-xs font-mono text-slate-400">${unidadActual}</span>
+              ${fuentes.length > 2 ? `
+                <button onclick="eliminarFuente(${idx})" class="text-slate-500 hover:text-red-400 text-xs pl-1" title="Eliminar fuente">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              ` : ''}
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-3">
+            <input type="range" min="0.001" max="${maxVal}" step="${stepVal}" value="${f.valor}" 
+                   oninput="updateFuenteValor(${idx}, this.value)" class="w-full h-1.5 bg-brand-slate rounded-lg cursor-pointer">
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>${f.desc || ''}</span>
+            <span class="text-brand-cyan font-bold">Aporte: <span id="aporte-preview-${idx}">0.000</span> ${unidadActual}</span>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function updateFuenteValor(idx, nuevoValor) {
+      const val = parseFloat(nuevoValor);
+      if (!isNaN(val) && val >= 0) {
+        fuentes[idx].valor = val;
+        // Sincronizar slider y number input
+        renderFuentesSliders();
+        calcularGUM();
+      }
+    }
+
+    function eliminarFuente(idx) {
+      fuentes.splice(idx, 1);
+      renderFuentesSliders();
+      calcularGUM();
+    }
+
+    function agregarFuentePersonalizada() {
+      const nueva = {
+        id: 'f_' + Date.now(),
+        nombre: 'Nueva Fuente de Incertidumbre ' + (fuentes.length + 1),
+        tipo: 'B',
+        distribucion: 'rectangular',
+        valor: 0.020,
+        divisor: Math.sqrt(3),
+        c: 1,
+        v: 1000,
+        desc: 'Componente adicional de variabilidad'
+      };
+      fuentes.push(nueva);
+      renderFuentesSliders();
+      calcularGUM();
+    }
+
+    // --- CÁLCULO CENTRAL DE LA GUM (JCGM 100) ---
+    function calcularGUM() {
+      let sumaVarianza = 0;
+      let sumaWelch = 0; // Denominador de Welch-Satterthwaite: sum(ui^4 / vi)
+      let detalles = [];
+
+      fuentes.forEach((f, idx) => {
+        let u_i = 0;
+        let divisorCalculado = 1;
+
+        if (f.tipo === 'A') {
+          // Si es Tipo A, el valor ingresado es s (desviación estándar muestral)
+          // u_A = s / sqrt(n)
+          const n = f.n || 5;
+          divisorCalculado = Math.sqrt(n);
+          u_i = f.valor / divisorCalculado;
+        } else {
+          // Tipo B
+          if (f.distribucion === 'normal_2') divisorCalculado = 2.0;
+          else if (f.distribucion === 'rectangular') divisorCalculado = Math.sqrt(3);
+          else if (f.distribucion === 'triangular') divisorCalculado = Math.sqrt(6);
+          else if (f.distribucion === 'rectangular_res') divisorCalculado = Math.sqrt(3);
+          else divisorCalculado = Math.sqrt(3);
+
+          u_i = f.valor / divisorCalculado;
+        }
+
+        const c_i = f.c || 1;
+        const aporte = Math.abs(c_i) * u_i;
+        const varianza_i = Math.pow(aporte, 2);
+
+        sumaVarianza += varianza_i;
+
+        const v_i = f.v || (f.tipo === 'A' ? (f.n - 1) : 1000);
+        if (v_i > 0 && aporte > 0) {
+          sumaWelch += Math.pow(aporte, 4) / v_i;
+        }
+
+        detalles.push({
+          idx,
+          nombre: f.nombre,
+          tipo: f.tipo,
+          distribucion: f.distribucion,
+          semiamplitud: f.valor,
+          divisor: divisorCalculado,
+          u_i: u_i,
+          c_i: c_i,
+          aporte: aporte,
+          varianza: varianza_i,
+          grados: v_i
+        });
+
+        // Actualizar preview de aporte en slider
+        const elPrev = document.getElementById(`aporte-preview-${idx}`);
+        if (elPrev) elPrev.innerText = aporte.toFixed(4);
+      });
+
+      // Incertidumbre Combinada uc
+      const uc = Math.sqrt(sumaVarianza);
+
+      // Grados de libertad efectivos (Welch-Satterthwaite)
+      let veff = 1000;
+      if (sumaWelch > 0 && uc > 0) {
+        veff = Math.pow(uc, 4) / sumaWelch;
+      }
+
+      // Factor de cobertura k (t-Student al 95% de confianza)
+      let k = 2.00;
+      if (veff < 60) {
+        k = obtenerFactorStudent95(veff);
+      }
+
+      // Incertidumbre Expandida U
+      const U = k * uc;
+
+      // Calcular porcentajes relativos de Pareto
+      let maxPct = -1;
+      let fuenteDominante = null;
+
+      detalles.forEach(d => {
+        d.pctVarianza = sumaVarianza > 0 ? (d.varianza / sumaVarianza) * 100 : 0;
+        if (d.pctVarianza > maxPct) {
+          maxPct = d.pctVarianza;
+          fuenteDominante = d;
+        }
+      });
+
+      // --- ACTUALIZAR KPIS EN PANTALLA ---
+      document.getElementById('kpi-uc').innerText = uc.toFixed(4);
+      document.getElementById('kpi-k').innerText = k.toFixed(2);
+      document.getElementById('kpi-nueff').innerText = veff >= 500 ? '(v_eff: ∞)' : `(v_eff: ${Math.round(veff)})`;
+      document.getElementById('kpi-U').innerText = `± ${U.toFixed(4)}`;
+
+      if (fuenteDominante) {
+        document.getElementById('kpi-dominante-nombre').innerText = fuenteDominante.nombre;
+        document.getElementById('kpi-dominante-pct').innerText = `${fuenteDominante.pctVarianza.toFixed(1)}% de la varianza total`;
+      }
+
+      // Footer de la tabla
+      document.getElementById('tfoot-uc').innerText = uc.toFixed(4) + ' ' + unidadActual;
+      document.getElementById('tfoot-nueff').innerText = veff >= 500 ? '∞' : Math.round(veff);
+      document.getElementById('tfoot-k').innerText = k.toFixed(2);
+      document.getElementById('tfoot-U').innerText = `± ${U.toFixed(4)} ${unidadActual}`;
+
+      // Renderizar tabla y gráficos
+      renderTablaBalance(detalles);
+      updateCharts(detalles, uc, U);
+    }
+
+    // Tabla de t-Student al 95% de confianza bilateral (p = 0.95, alpha = 0.05)
+    function obtenerFactorStudent95(v) {
+      if (v < 1) return 12.71;
+      const vInt = Math.round(v);
+      const tabla = {
+        1: 12.71, 2: 4.30, 3: 3.18, 4: 2.78, 5: 2.57, 6: 2.45, 7: 2.36,
+        8: 2.31, 9: 2.26, 10: 2.23, 12: 2.18, 15: 2.13, 20: 2.09,
+        25: 2.06, 30: 2.04, 40: 2.02, 50: 2.01, 60: 2.00
+      };
+      if (tabla[vInt]) return tabla[vInt];
+      if (vInt >= 60) return 2.00;
+      // Interpolación aproximada conservativa
+      return 2.00 + (1.1 / Math.sqrt(v));
+    }
+
+    // --- RENDERIZADO DE LA TABLA DE BALANCE ---
+    function renderTablaBalance(detalles) {
+      const tbody = document.getElementById('tabla-balance-body');
+      tbody.innerHTML = '';
+
+      detalles.forEach(d => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-brand-slate/30 transition border-b border-brand-slate/30";
+
+        // Nombre de distribución amigable
+        let distName = "Rectangular";
+        if (d.tipo === 'A') distName = "Normal (Tipo A)";
+        else if (d.distribucion === 'normal_2') distName = "Normal (k=2)";
+        else if (d.distribucion === 'triangular') distName = "Triangular";
+
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 font-sans font-medium text-white">${d.nombre}</td>
+          <td class="py-2.5 px-2 text-center">
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${d.tipo === 'A' ? 'bg-green-500/20 text-green-300' : 'bg-brand-cyan/20 text-brand-cyan'}">
+              Tipo ${d.tipo}
+            </span>
+          </td>
+          <td class="py-2.5 px-2 text-slate-400">${distName}</td>
+          <td class="py-2.5 px-3 text-right">${d.semiamplitud.toFixed(4)}</td>
+          <td class="py-2.5 px-2 text-center text-slate-400">${d.divisor.toFixed(3)}</td>
+          <td class="py-2.5 px-3 text-right">${d.u_i.toFixed(4)}</td>
+          <td class="py-2.5 px-2 text-center">${d.c_i}</td>
+          <td class="py-2.5 px-3 text-right font-bold text-brand-cyan">${d.aporte.toFixed(4)}</td>
+          <td class="py-2.5 px-2 text-center text-slate-400">${d.grados >= 1000 ? '∞' : d.grados}</td>
+          <td class="py-2.5 px-3 text-right font-bold text-purple-300">${d.pctVarianza.toFixed(1)}%</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // --- GRÁFICOS CHART.JS ---
+    function initCharts() {
+      // 1. Donut de Varianza (Pareto %)
+      const ctxDonut = document.getElementById('chartDonut').getContext('2d');
+      chartDonut = new Chart(ctxDonut, {
+        type: 'doughnut',
+        data: {
+          labels: [],
+          datasets: [{
+            data: [],
+            backgroundColor: [
+              '#008DDA', '#FF6B6B', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899', '#6366F1'
+            ],
+            borderColor: '#0B192C',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: { color: '#94A3B8', font: { size: 10, family: 'Plus Jakarta Sans' }, boxWidth: 12 }
+            }
+          }
+        }
+      });
+
+      // 2. Bar Chart de Aportes
+      const ctxBar = document.getElementById('chartBar').getContext('2d');
+      chartBar = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: [],
+          datasets: [{
+            label: 'Aporte u_i(y)',
+            data: [],
+            backgroundColor: 'rgba(0, 141, 218, 0.7)',
+            borderColor: '#008DDA',
+            borderWidth: 1.5,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8', font: { size: 9 } } },
+            y: { grid: { display: false }, ticks: { color: '#F8FAFC', font: { size: 10, family: 'Plus Jakarta Sans' } } }
+          }
+        }
+      });
+
+      // 3. Campana de Gauss
+      const ctxGauss = document.getElementById('chartGauss').getContext('2d');
+      chartGauss = new Chart(ctxGauss, {
+        type: 'line',
+        data: {
+          labels: [],
+          datasets: [{
+            label: 'Densidad Normal',
+            data: [],
+            borderColor: '#008DDA',
+            backgroundColor: 'rgba(0, 141, 218, 0.2)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: false },
+            y: { display: false }
+          }
+        }
+      });
+    }
+
+    function updateCharts(detalles, uc, U) {
+      if (!chartDonut || !chartBar || !chartGauss) return;
+
+      // Actualizar Donut
+      chartDonut.data.labels = detalles.map(d => d.nombre.length > 20 ? d.nombre.slice(0, 20) + '...' : d.nombre);
+      chartDonut.data.datasets[0].data = detalles.map(d => d.pctVarianza.toFixed(1));
+      chartDonut.update();
+
+      // Actualizar Barras (ordenadas de mayor a menor)
+      const ordenados = [...detalles].sort((a, b) => b.aporte - a.aporte);
+      chartBar.data.labels = ordenados.map(d => d.nombre.length > 18 ? d.nombre.slice(0, 18) + '...' : d.nombre);
+      chartBar.data.datasets[0].data = ordenados.map(d => d.aporte.toFixed(4));
+      chartBar.update();
+
+      // Actualizar Campana de Gauss
+      const numPoints = 60;
+      const sigma = uc > 0 ? uc : 0.01;
+      const xMin = -3.5 * sigma;
+      const xMax = 3.5 * sigma;
+      const step = (xMax - xMin) / numPoints;
+
+      let gaussLabels = [];
+      let gaussData = [];
+
+      for (let i = 0; i <= numPoints; i++) {
+        const x = xMin + (i * step);
+        const y = (1 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow(x / sigma, 2));
+        gaussLabels.push(x.toFixed(4));
+        gaussData.push(y);
+      }
+
+      chartGauss.data.labels = gaussLabels;
+      chartGauss.data.datasets[0].data = gaussData;
+      chartGauss.update();
+    }
+
+    // --- AUTOEVALUACIÓN (QUIZ) ---
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+
+      PREGUNTAS_QUIZ.forEach((item, qIdx) => {
+        const card = document.createElement('div');
+        card.className = "bg-brand-slate/40 border border-brand-slate rounded-2xl p-5 space-y-3";
+        
+        let opcionesHtml = '';
+        item.opciones.forEach((op, oIdx) => {
+          opcionesHtml += `
+            <label class="flex items-start space-x-3 p-2.5 rounded-xl hover:bg-brand-navy/60 cursor-pointer border border-transparent hover:border-brand-slate/60 transition text-xs">
+              <input type="radio" name="pregunta_${qIdx}" value="${oIdx}" class="mt-0.5 text-brand-cyan focus:ring-brand-cyan">
+              <span class="text-slate-300 font-medium">${op}</span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <h3 class="text-sm font-outfit font-bold text-white">${item.q}</h3>
+          <div class="space-y-1.5">${opcionesHtml}</div>
+          <div id="feedback_${qIdx}" class="hidden p-3 rounded-xl text-xs font-mono mt-2"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function calificarQuiz() {
+      let aciertos = 0;
+      PREGUNTAS_QUIZ.forEach((item, qIdx) => {
+        const radios = document.getElementsByName(`pregunta_${qIdx}`);
+        let seleccion = -1;
+        radios.forEach(r => { if (r.checked) seleccion = parseInt(r.value); });
+
+        const feedbackEl = document.getElementById(`feedback_${qIdx}`);
+        feedbackEl.classList.remove('hidden', 'bg-green-500/10', 'text-green-300', 'border-green-500/40', 'bg-red-500/10', 'text-red-300', 'border-red-500/40');
+
+        if (seleccion === item.correcta) {
+          aciertos++;
+          feedbackEl.className = "p-3 rounded-xl text-xs font-mono mt-2 border bg-green-500/10 text-green-300 border-green-500/40";
+          feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> <strong>¡Correcto!</strong> ${item.explicacion}`;
+        } else {
+          feedbackEl.className = "p-3 rounded-xl text-xs font-mono mt-2 border bg-red-500/10 text-red-300 border-red-500/40";
+          feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> <strong>Incorrecto.</strong> ${item.explicacion}`;
+        }
+      });
+
+      const resBox = document.getElementById('quiz-resultado');
+      resBox.classList.remove('hidden');
+      const pct = (aciertos / PREGUNTAS_QUIZ.length) * 100;
+      
+      resBox.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-lg font-outfit font-bold text-white">Resultado de la Evaluación: ${aciertos} de ${PREGUNTAS_QUIZ.length} (${pct.toFixed(0)}%)</h3>
+            <p class="text-xs text-slate-300 mt-1">
+              ${pct >= 75 ? '🎉 ¡Felicitaciones! Has demostrado sólida competencia en el cálculo de incertidumbres bajo ISO 17025.' : '⚠️ Te recomendamos repasar las lecciones del módulo de capacitación y volver a intentarlo.'}
+            </p>
+          </div>
+          <span class="text-3xl font-outfit font-extrabold ${pct >= 75 ? 'text-green-400' : 'text-amber-400'}">${pct.toFixed(0)}%</span>
+        </div>
+      `;
+    }
+
+    // --- EXPORTAR Y COPIAR TABLA ---
+    function exportarCSV() {
+      let csv = "Fuente,Tipo,Distribucion,Semi-amplitud,Divisor,Incertidumbre_Estandar,Coef_Sensibilidad,Aporte,Grados_Libertad,Porcentaje_Varianza\n";
+      const filas = document.querySelectorAll("#tabla-balance-body tr");
+      filas.forEach(f => {
+        const cols = Array.from(f.querySelectorAll("td")).map(td => `"${td.innerText.replace(/"/g, '""')}"`);
+        csv += cols.join(",") + "\n";
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Presupuesto_Incertidumbre_CALCAL_${currentPreset}.csv`;
+      a.click();
+    }
+
+    function copiarTablaPortapapeles() {
+      let texto = "Fuente\tTipo\tDistribución\tSemi-amplitud\tDivisor\tu(x_i)\tc_i\tu_i(y)\tv_i\t% Varianza\n";
+      const filas = document.querySelectorAll("#tabla-balance-body tr");
+      filas.forEach(f => {
+        const cols = Array.from(f.querySelectorAll("td")).map(td => td.innerText.trim());
+        texto += cols.join("\t") + "\n";
+      });
+      navigator.clipboard.writeText(texto).then(() => {
+        alert("¡Tabla de balance copiada al portapapeles! Puedes pegarla directamente en Excel o Word.");
+      });
+    }
+
+    // --- MOTOR NUMÉRICO DE MONTE CARLO EN VIVO (JCGM 101:2008) ---
+    function boxMullerNormal() {
+      let u = 0, v = 0;
+      while (u === 0) u = Math.random();
+      while (v === 0) v = Math.random();
+      return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    }
+
+    function ejecutarMonteCarloWeb() {
+      const selectM = document.getElementById('mc-trials-select');
+      const M = selectM ? parseInt(selectM.value, 10) : 100000;
+      const samples = new Float64Array(M);
+
+      // Calcular u_i y c_i de cada fuente actual
+      let sumaVarGum = 0;
+      let sumaWelch = 0;
+      const specs = fuentes.map(f => {
+        let div = 1.0;
+        if (f.tipo === 'A') div = Math.sqrt(f.n || 5);
+        else if (f.distribucion === 'normal_2') div = 2.0;
+        else if (f.distribucion === 'triangular') div = Math.sqrt(6);
+        else div = Math.sqrt(3);
+        const ui = f.valor / div;
+        const ci = f.c || 1.0;
+        const ap = Math.abs(ci) * ui;
+        sumaVarGum += ap * ap;
+        const vi = f.v || (f.tipo === 'A' ? ((f.n || 5) - 1) : 1000);
+        if (vi > 0 && ap > 0) sumaWelch += Math.pow(ap, 4) / vi;
+        return { dist: f.distribucion, tipo: f.tipo, ui, ci, a: f.valor };
+      });
+
+      const ucGum = Math.sqrt(sumaVarGum);
+      const veff = (sumaWelch > 0 && ucGum > 0) ? (Math.pow(ucGum, 4) / sumaWelch) : 1000;
+      const kGum = veff < 60 ? obtenerFactorStudent95(veff) : 2.00;
+      const UGum = kGum * ucGum;
+
+      // Propagación vectorizada de M ensayos
+      for (let m = 0; m < M; m++) {
+        let yVal = 0.0;
+        for (let j = 0; j < specs.length; j++) {
+          const s = specs[j];
+          let xDraw = 0.0;
+          if (s.tipo === 'A' || s.dist === 'normal_2') {
+            xDraw = boxMullerNormal() * s.ui;
+          } else if (s.dist === 'triangular') {
+            const aTri = s.ui * Math.sqrt(6.0);
+            const u1 = Math.random(), u2 = Math.random();
+            xDraw = (u1 - u2) * aTri;
+          } else {
+            // Rectangular U(-a, +a)
+            const aRect = s.ui * Math.sqrt(3.0);
+            xDraw = (2.0 * Math.random() - 1.0) * aRect;
+          }
+          yVal += s.ci * xDraw;
+        }
+        samples[m] = yVal;
+      }
+
+      samples.sort();
+
+      // Estadísticos Monte Carlo
+      let sum = 0.0, sumSq = 0.0;
+      for (let m = 0; m < M; m++) {
+        const v = samples[m];
+        sum += v;
+        sumSq += v * v;
+      }
+      const meanMC = sum / M;
+      const stdMC = Math.sqrt((sumSq - M * meanMC * meanMC) / (M - 1));
+
+      // Intervalo más corto al 95.45% (JCGM 101 §5.3.4)
+      const pCov = 0.9545;
+      const span = Math.floor(pCov * M);
+      let minWidth = Infinity;
+      let bestIdx = 0;
+      for (let i = 0; i <= M - span - 1; i++) {
+        const w = samples[i + span] - samples[i];
+        if (w < minWidth) {
+          minWidth = w;
+          bestIdx = i;
+        }
+      }
+      const U_MC = minWidth / 2.0;
+      const k_eq = stdMC > 0 ? (U_MC / stdMC) : 2.0;
+
+      // Criterio de validación Cláusula 8 de JCGM 101 (2 cifras significativas en u_c)
+      let deltaTol = 0.0005;
+      if (ucGum > 1e-12) {
+        const expL = Math.floor(Math.log10(ucGum)) - 1;
+        deltaTol = 0.5 * Math.pow(10, expL);
+      }
+      const dMax = Math.max(
+        Math.abs(-UGum - samples[bestIdx]),
+        Math.abs(UGum - samples[bestIdx + span])
+      );
+      const gumValida = dMax <= deltaTol;
+      const diffPct = UGum > 0 ? (((U_MC - UGum) / UGum) * 100.0) : 0.0;
+
+      // Actualizar KPIs de Monte Carlo
+      const elUy = document.getElementById('mc-kpi-uy');
+      if (elUy) {
+        elUy.innerText = `${stdMC.toFixed(4)} ${unidadActual}`;
+        document.getElementById('mc-kpi-U').innerText = `± ${U_MC.toFixed(4)} ${unidadActual}`;
+        document.getElementById('mc-kpi-keq').innerText = `k_eq = ${k_eq.toFixed(3)} (p=95.45%)`;
+        document.getElementById('mc-kpi-delta').innerText = `δ = ${deltaTol.toFixed(5)}`;
+        document.getElementById('mc-kpi-dmax').innerText = `d_max = ${dMax.toFixed(5)} ${unidadActual}`;
+        const statusEl = document.getElementById('mc-kpi-status');
+        if (gumValida) {
+          statusEl.className = "text-sm font-outfit font-extrabold text-emerald-400 mt-1.5";
+          statusEl.innerText = "✓ GUM VALIDADA (d ≤ δ)";
+        } else {
+          statusEl.className = "text-sm font-outfit font-extrabold text-amber-400 mt-1.5";
+          statusEl.innerText = "⚠ USAR MONTE CARLO (d > δ)";
+        }
+        document.getElementById('mc-kpi-diffpct').innerText = `Variación vs GUM: ${diffPct >= 0 ? '+' : ''}${diffPct.toFixed(1)}%`;
+      }
+    }
+
+    // --- LABORATORIO DE DERIVADAS PARCIALES (c_i) Y CALLENDAR-VAN DUSEN / ITS-90 ---
+    function calcularSensibilidadRTDWeb() {
+      const tEl = document.getElementById('sens-temp');
+      if (!tEl) return;
+      const T = parseFloat(tEl.value) || 0.0;
+      const R0 = parseFloat(document.getElementById('sens-r0').value) || 100.0;
+      const uR = parseFloat(document.getElementById('sens-ur').value) || 0.010;
+
+      const A = 3.9083e-3;
+      const B = -5.7750e-7;
+      const C = -4.1830e-12;
+
+      let Rt = 0.0, dRdT = 0.0;
+      if (T >= 0.0) {
+        Rt = R0 * (1.0 + A * T + B * T * T);
+        dRdT = R0 * (A + 2.0 * B * T);
+      } else {
+        Rt = R0 * (1.0 + A * T + B * T * T + C * (T - 100.0) * Math.pow(T, 3));
+        dRdT = R0 * (A + 2.0 * B * T + C * (4.0 * Math.pow(T, 3) - 300.0 * T * T));
+      }
+
+      const cR = 1.0 / dRdT;
+      const cR0 = -(Rt / R0) / dRdT;
+      const aporteT = Math.abs(cR) * uR;
+
+      document.getElementById('sens-out-rt').innerText = `${Rt.toFixed(4)} Ω`;
+      document.getElementById('sens-out-drdt').innerText = `${dRdT.toFixed(6)} Ω/°C`;
+      document.getElementById('sens-out-cr').innerText = `${cR.toFixed(6)} °C/Ω`;
+      document.getElementById('sens-out-cr0').innerText = `${cR0.toFixed(6)} °C/Ω`;
+      document.getElementById('sens-out-aporte').innerText = `${aporteT.toFixed(4)} °C`;
+      return { T, R0, uR, cR };
+    }
+
+    function inyectarSensibilidadEnSimulador() {
+      const datos = calcularSensibilidadRTDWeb();
+      if (!datos) return;
+      setTab('simulador');
+      fuentes.push({
+        id: 'f_rtd_' + Date.now(),
+        nombre: `Puente Eléctrico Pt100 a ${datos.T}°C (Ω → °C)`,
+        tipo: 'B',
+        distribucion: 'rectangular',
+        valor: datos.uR * Math.sqrt(3),
+        divisor: Math.sqrt(3),
+        c: parseFloat(datos.cR.toFixed(4)),
+        v: 1000,
+        desc: `Coeficiente sensibilidad analítico c_R = ∂T/∂R = ${datos.cR.toFixed(4)} °C/Ω`
+      });
+      renderFuentesSliders();
+      calcularGUM();
+      ejecutarMonteCarloWeb();
+    }
+
+    function ajustarCurvaCVDWeb() {
+      const tStr = document.getElementById('cvd-temps').value;
+      const rStr = document.getElementById('cvd-res').value;
+      const T = tStr.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+      const R = rStr.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+      if (T.length < 3 || T.length !== R.length) {
+        alert("Ingresa al menos 3 pares de Temperatura (°C) y Resistencia (Ω) separados por coma.");
+        return;
+      }
+
+      // Ajuste matricial OLS de 3 parámetros: R = b0 + b1*T + b2*T^2
+      const n = T.length;
+      let s1 = n, st = 0, st2 = 0, st3 = 0, st4 = 0;
+      let sr = 0, str = 0, st2r = 0;
+      for (let i = 0; i < n; i++) {
+        const ti = T[i], ri = R[i];
+        const t2 = ti * ti;
+        st += ti;
+        st2 += t2;
+        st3 += t2 * ti;
+        st4 += t2 * t2;
+        sr += ri;
+        str += ti * ri;
+        st2r += t2 * ri;
+      }
+
+      // Resolver sistema 3x3 por eliminación de Gauss
+      const M = [
+        [s1, st, st2, sr],
+        [st, st2, st3, str],
+        [st2, st3, st4, st2r]
+      ];
+      for (let k = 0; k < 3; k++) {
+        let iMax = k;
+        for (let i = k + 1; i < 3; i++) {
+          if (Math.abs(M[i][k]) > Math.abs(M[iMax][k])) iMax = i;
+        }
+        const tmp = M[k]; M[k] = M[iMax]; M[iMax] = tmp;
+        for (let i = k + 1; i < 3; i++) {
+          const f = M[i][k] / M[k][k];
+          for (let j = k; j <= 3; j++) M[i][j] -= f * M[k][j];
+        }
+      }
+      const beta = [0, 0, 0];
+      for (let i = 2; i >= 0; i--) {
+        let sum = M[i][3];
+        for (let j = i + 1; j < 3; j++) sum -= M[i][j] * beta[j];
+        beta[i] = sum / M[i][i];
+      }
+
+      const R0 = beta[0];
+      const A = beta[1] / R0;
+      const B = beta[2] / R0;
+
+      let maxResmK = 0;
+      for (let i = 0; i < n; i++) {
+        const rPred = beta[0] + beta[1] * T[i] + beta[2] * T[i] * T[i];
+        const resC = Math.abs(R[i] - rPred) / (R0 * A);
+        if (resC * 1000 > maxResmK) maxResmK = resC * 1000;
+      }
+
+      // Función de referencia ITS-90 W_r(100 °C)
+      const C0 = 2.78157254;
+      const C_c = [1.64650916, -0.13714390, -0.00649767, -0.00234444, 0.00511868, 0.00187982, -0.00204472, -0.00046122, 0.00045724];
+      const x90 = (373.15 - 754.15) / 481.0;
+      let wr100 = C0;
+      for (let idx = 0; idx < C_c.length; idx++) wr100 += C_c[idx] * Math.pow(x90, idx + 1);
+
+      document.getElementById('cvd-out-r0').innerText = `${R0.toFixed(4)} Ω`;
+      document.getElementById('cvd-out-a').innerText = A.toExponential(5);
+      document.getElementById('cvd-out-b').innerText = B.toExponential(4);
+      document.getElementById('cvd-out-resmk').innerText = `${maxResmK.toFixed(2)} mK (${(maxResmK / 1000).toFixed(4)} °C)`;
+      document.getElementById('cvd-out-wr').innerText = wr100.toFixed(7);
+    }
+
+    // Ejecutar cálculos iniciales de Monte Carlo y Sensibilidad al cargar
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        ejecutarMonteCarloWeb();
+        calcularSensibilidadRTDWeb();
+        ajustarCurvaCVDWeb();
+      }, 150);
+    });
+  </script>
+
+</body>
+</html>

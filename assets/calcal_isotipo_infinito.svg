@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280" width="100%" height="100%">
+  <defs>
+    <!-- Filtro de sombra suave -->
+    <filter id="subtle-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#1A1F24" flood-opacity="0.25"/>
+    </filter>
+    
+    <!-- Gradientes de Facetas Verde Limón -->
+    <linearGradient id="lime-top" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D6EF6E"/>
+      <stop offset="100%" stop-color="#B2D235"/>
+    </linearGradient>
+    <linearGradient id="lime-main" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B2D235"/>
+      <stop offset="100%" stop-color="#8FAE1E"/>
+    </linearGradient>
+    <linearGradient id="lime-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8FAE1E"/>
+      <stop offset="100%" stop-color="#67800E"/>
+    </linearGradient>
+    <linearGradient id="lime-light" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EDF9A8"/>
+      <stop offset="100%" stop-color="#C5E445"/>
+    </linearGradient>
+
+    <!-- Gradientes de Facetas Fucsia Láser -->
+    <linearGradient id="fuchsia-top" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF528A"/>
+      <stop offset="100%" stop-color="#E01A59"/>
+    </linearGradient>
+    <linearGradient id="fuchsia-main" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E01A59"/>
+      <stop offset="100%" stop-color="#B80E42"/>
+    </linearGradient>
+    <linearGradient id="fuchsia-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B80E42"/>
+      <stop offset="100%" stop-color="#7C0428"/>
+    </linearGradient>
+    <linearGradient id="fuchsia-light" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFA1C2"/>
+      <stop offset="100%" stop-color="#F23674"/>
+    </linearGradient>
+
+    <!-- Conector Central Neutro Metálico -->
+    <linearGradient id="bridge-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8FAE1E"/>
+      <stop offset="50%" stop-color="#2D353C"/>
+      <stop offset="100%" stop-color="#B80E42"/>
+    </linearGradient>
+  </defs>
+
+  <g filter="url(#subtle-glow)" transform="translate(10, 5)">
+    <!-- ================= LAZO IZQUIERDO: VERDE LIMÓN (PRECISIÓN / CONFORME) ================= -->
+    <!-- Faceta Superior Externa Izquierda -->
+    <polygon points="140,40 250,140 220,140 130,68 60,140 100,140" fill="url(#lime-light)"/>
+    
+    <!-- Curva Facetada Exterior Izquierda -->
+    <path d="M 140,40 C 70,40 20,85 20,140 C 20,195 70,240 140,240 L 155,220 C 95,220 50,185 50,140 C 50,95 95,60 140,60 Z" fill="url(#lime-main)"/>
+    
+    <!-- Faceta Interior Borde Curvo Izquierdo -->
+    <polygon points="20,140 60,140 100,180 60,195 20,140" fill="url(#lime-dark)"/>
+    
+    <!-- Brazo Inferior Izquierdo hacia el centro -->
+    <polygon points="140,240 250,140 225,140 130,218 60,140 50,140" fill="url(#lime-top)"/>
+    <polygon points="130,218 225,140 250,140 155,220 140,240" fill="url(#lime-dark)"/>
+
+    <!-- Núcleo Central de Cruce Frontal (Lime hacia Fuchsia) -->
+    <polygon points="210,105 250,140 210,175 180,140" fill="url(#lime-main)"/>
+    
+    <!-- ================= LAZO DERECHO: FUCSIA LÁSER (TECNOLOGÍA / INNOVACIÓN) ================= -->
+    <!-- Faceta Superior Externa Derecha -->
+    <polygon points="340,40 250,140 275,140 350,68 420,140 380,140" fill="url(#fuchsia-light)"/>
+
+    <!-- Curva Facetada Exterior Derecha -->
+    <path d="M 340,40 C 410,40 460,85 460,140 C 460,195 410,240 340,240 L 325,220 C 385,220 430,185 430,140 C 430,95 385,60 340,60 Z" fill="url(#fuchsia-main)"/>
+
+    <!-- Faceta Interior Borde Curvo Derecho -->
+    <polygon points="460,140 420,140 380,180 420,195 460,140" fill="url(#fuchsia-dark)"/>
+
+    <!-- Brazo Inferior Derecho hacia el centro -->
+    <polygon points="340,240 250,140 275,140 350,218 420,140 430,140" fill="url(#fuchsia-top)"/>
+    <polygon points="350,218 275,140 250,140 325,220 340,240" fill="url(#fuchsia-dark)"/>
+
+    <!-- Núcleo Central de Cruce Frontal (Fuchsia) -->
+    <polygon points="290,105 250,140 290,175 320,140" fill="url(#fuchsia-main)"/>
+
+    <!-- Aristas de Corte Facetado Tridimensional (Líneas de Luz) -->
+    <line x1="140" y1="40" x2="250" y2="140" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.6"/>
+    <line x1="140" y1="240" x2="250" y2="140" stroke="#1A1F24" stroke-width="2" stroke-opacity="0.3"/>
+    <line x1="340" y1="40" x2="250" y2="140" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.6"/>
+    <line x1="340" y1="240" x2="250" y2="140" stroke="#1A1F24" stroke-width="2" stroke-opacity="0.3"/>
+    
+    <!-- Centro de Convergencia / Punto Focal Metrológico -->
+    <circle cx="250" cy="140" r="5" fill="#FFFFFF" opacity="0.9"/>
+  </g>
+</svg>

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAL CAL | Brochure Oficial de Marca & Manual de Identidad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;600;700;800;900&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lime: #B2D235;
+      --fuchsia: #E01A59;
+      --pearl: #E8ECEF;
+      --pearl-light: #F4F6F8;
+      --carbon: #1A1F24;
+      --carbon-card: #222830;
+      --slate: #4A5A6C;
+      --white: #FFFFFF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Public Sans', sans-serif;
+      background-color: var(--pearl-light);
+      color: var(--carbon);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* CONTENEDOR PRINCIPAL TIPO PÁGINAS DE PRESENTACIÓN */
+    .deck-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .slide {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 60px 70px;
+      margin-bottom: 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+    }
+
+    /* SLIDE OSCURA (PORTADA / IMPACTO) */
+    .slide.dark {
+      background: var(--carbon);
+      color: var(--white);
+    }
+
+    /* TOP BAR CORPORATIVA */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding-bottom: 20px;
+      margin-bottom: 40px;
+    }
+
+    .slide.dark .slide-header {
+      border-bottom-color: rgba(255,255,255,0.1);
+    }
+
+    .brand-mini {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--carbon);
+    }
+
+    .slide.dark .brand-mini {
+      color: var(--white);
+    }
+
+    .brand-mini .c-fuchsia { color: var(--fuchsia); }
+    .brand-mini .c-lime { color: var(--lime); }
+
+    .slide-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--slate);
+      font-weight: 700;
+    }
+
+    .slide.dark .slide-number {
+      color: var(--lime);
+    }
+
+    /* PORTADA */
+    .cover-content {
+      padding: 80px 0 60px 0;
+      text-align: center;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(178, 210, 53, 0.15);
+      border: 1px solid var(--lime);
+      color: var(--lime);
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 30px;
+    }
+
+    .cover-title {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 68px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .cover-subtitle {
+      font-size: 20px;
+      color: #A0B0C0;
+      max-width: 650px;
+      margin: 0 auto 50px auto;
+      font-weight: 300;
+    }
+
+    .cover-footer {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      font-size: 13px;
+      color: #708090;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 30px;
+    }
+
+    /* TITULOS DE SECCIÓN */
+    .section-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--fuchsia);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: var(--carbon);
+    }
+
+    .slide.dark .section-title {
+      color: var(--white);
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--slate);
+      margin-bottom: 40px;
+      max-width: 800px;
+    }
+
+    .slide.dark .section-desc {
+      color: #A0B0C0;
+    }
+
+    /* GRILLA DE LOGOS */
+    .logos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .logo-card {
+      background: var(--pearl-light);
+      border: 1px solid #DFE5EA;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease;
+    }
+
+    .logo-card.dark-theme {
+      background: var(--carbon);
+      border-color: #333C48;
+      color: var(--white);
+    }
+
+    .logo-img-wrapper {
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 20px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .logo-card.dark-theme .logo-img-wrapper {
+      background: #111417;
+      border-color: rgba(255,255,255,0.05);
+    }
+
+    .logo-img-wrapper img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .logo-card h4 {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .logo-card p {
+      font-size: 13px;
+      color: var(--slate);
+      line-height: 1.4;
+    }
+
+    .logo-card.dark-theme p {
+      color: #8E9EA8;
+    }
+
+    /* SISTEMA DE COLOR */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .swatch {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #FFFFFF;
+      border: 1px solid #DFE5EA;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .swatch-color {
+      height: 110px;
+      width: 100%;
+    }
+
+    .swatch-info {
+      padding: 15px 12px;
+    }
+
+    .swatch-name {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--carbon);
+    }
+
+    .swatch-hex {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--fuchsia);
+      margin-bottom: 4px;
+    }
+
+    .swatch-role {
+      font-size: 11px;
+      color: var(--slate);
+      line-height: 1.3;
+    }
+
+    /* TIPOGRAFÍAS */
+    .typo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 25px;
+    }
+
+    .typo-card {
+      background: var(--pearl-light);
+      border-radius: 12px;
+      padding: 30px;
+      border: 1px solid #DFE5EA;
+    }
+
+    .typo-sample-big {
+      font-size: 54px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 12px;
+      color: var(--carbon);
+    }
+
+    .typo-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--fuchsia);
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .typo-alphabet {
+      font-size: 15px;
+      letter-spacing: 1px;
+      color: var(--slate);
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    /* DO'S & DON'TS */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .rule-box {
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .rule-box.dos {
+      background: rgba(178, 210, 53, 0.08);
+      border: 2px solid var(--lime);
+    }
+
+    .rule-box.donts {
+      background: rgba(224, 26, 89, 0.06);
+      border: 2px solid var(--fuchsia);
+    }
+
+    .rule-title {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .rule-box.dos .rule-title { color: #58700B; }
+    .rule-box.donts .rule-title { color: var(--fuchsia); }
+
+    .rule-list {
+      list-style: none;
+    }
+
+    .rule-list li {
+      margin-bottom: 12px;
+      font-size: 14px;
+      position: relative;
+      padding-left: 24px;
+      color: var(--carbon);
+    }
+
+    .rule-box.dos .rule-list li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #6C8A0D;
+      font-weight: bold;
+    }
+
+    .rule-box.donts .rule-list li::before {
+      content: "✖";
+      position: absolute;
+      left: 0;
+      color: var(--fuchsia);
+      font-weight: bold;
+    }
+
+    /* APLICACIONES / MOCKUPS */
+    .mockups-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 30px;
+      align-items: center;
+      margin-top: 25px;
+    }
+
+    .mockup-visual {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border: 1px solid #DFE5EA;
+    }
+
+    .mockup-visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .mockup-details {
+      padding: 10px;
+    }
+
+    .mockup-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--carbon);
+      color: var(--lime);
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .mockup-item {
+      margin-bottom: 20px;
+    }
+
+    .mockup-item h5 {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--carbon);
+      margin-bottom: 4px;
+    }
+
+    .mockup-item p {
+      font-size: 13.5px;
+      color: var(--slate);
+    }
+
+    /* PIE DE BROCHURE */
+    .brochure-footer {
+      text-align: center;
+      padding: 40px 0 20px 0;
+      font-size: 13px;
+      color: var(--slate);
+    }
+
+    /* PRINT READY STYLES */
+    @media print {
+      body { background: #FFFFFF; }
+      .deck-container { padding: 0; max-width: 100%; }
+      .slide {
+        box-shadow: none;
+        border-radius: 0;
+        margin-bottom: 0;
+        padding: 40px;
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-container">
+
+    <!-- ==================== SLIDE 1: PORTADA EJECUTIVA ==================== -->
+    <div class="slide dark">
+      <div class="slide-header">
+        <div class="brand-mini"><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL</div>
+        <div class="slide-number">EDICIÓN EJECUTIVA 2026</div>
+      </div>
+
+      <div class="cover-content">
+        <div class="badge-pill">MANUAL DE IDENTIDAD & BROCHURE DE MARCA</div>
+        <h1 class="cover-title">EL NEXO DE<br><span style="color: var(--lime);">PRECISIÓN</span></h1>
+        <p class="cover-subtitle">
+          Guía integral de identidad visual, directrices de diseño corporativo y activos gráficos para el Laboratorio de Calibración y Metrología Industrial.
+        </p>
+      </div>
+
+      <div class="cover-footer">
+        <div><strong>Empresa:</strong> CAL CAL</div>
+        <div><strong>Estándar:</strong> ISO/IEC 17025</div>
+        <div><strong>Confidencialidad:</strong> Uso Institucional & Clientes</div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 2: MANIFIESTO Y PROPÓSITO ==================== -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="brand-mini"><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL <span style="font-weight: 300; opacity: 0.4; margin: 0 6px;">|</span> Identidad</div>
+        <div class="slide-number">01 / FILOSOFÍA</div>
+      </div>
+
+      <div class="section-tag">Manifiesto de Marca</div>
+      <h2 class="section-title">Medimos dos veces para asegurar con certeza absoluta.</h2>
+      <p class="section-desc">
+        CAL CAL nace para cerrar la brecha entre la metrología tradicional y la velocidad digital. Rompemos los esquemas rígidos y monocromáticos de la industria técnica mediante una estética moderna, audaz y juvenil, respaldada por el más estricto rigor de calibración dimensional, física y analítica.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px;">
+        <div style="background: var(--pearl-light); padding: 25px; border-radius: 12px; border-left: 4px solid var(--lime);">
+          <h4 style="font-family: 'Kumbh Sans', sans-serif; font-size: 18px; margin-bottom: 8px;">Precisión Inquebrantable</h4>
+          <p style="font-size: 13px; color: var(--slate);">Cada dato que emitimos reduce la incertidumbre y blinda los procesos de calidad de la industria.</p>
+        </div>
+        <div style="background: var(--pearl-light); padding: 25px; border-radius: 12px; border-left: 4px solid var(--fuchsia);">
+          <h4 style="font-family: 'Kumbh Sans', sans-serif; font-size: 18px; margin-bottom: 8px;">Juventud Tecnológica</h4>
+          <p style="font-size: 13px; color: var(--slate);">Una imagen ágil y fresca que proyecta dinamismo frente a laboratorios obsoletos.</p>
+        </div>
+        <div style="background: var(--pearl-light); padding: 25px; border-radius: 12px; border-left: 4px solid var(--carbon);">
+          <h4 style="font-family: 'Kumbh Sans', sans-serif; font-size: 18px; margin-bottom: 8px;">Garantía ISO/IEC 17025</h4>
+          <p style="font-size: 13px; color: var(--slate);">Cumplimiento exhaustivo con trazabilidad a patrones del Instituto Nacional de Metrología (INM).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 3: ECOSISTEMA DE LOGOTIPOS OFICIALES ==================== -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="brand-mini"><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL <span style="font-weight: 300; opacity: 0.4; margin: 0 6px;">|</span> Arquitectura Gráfica</div>
+        <div class="slide-number">02 / SISTEMA DE LOGOS</div>
+      </div>
+
+      <div class="section-tag">Activos Oficiales Aprobados</div>
+      <h2 class="section-title">El Trinomio Visual Exclusivo</h2>
+      <p class="section-desc">
+        La identidad visual de CAL CAL se fundamenta estrictamente en tres versiones autorizadas. Ningún otro elemento o logotipo liso forma parte de la arquitectura de la marca.
+      </p>
+
+      <div class="logos-grid">
+        <!-- CARD 1: WORDMARK -->
+        <div class="logo-card">
+          <div>
+            <div class="logo-img-wrapper">
+              <img src="assets/calcal_tipografia_calcal.jpg" alt="Wordmark CAL CAL Oficial">
+            </div>
+            <h4>1. Wordmark Oficial</h4>
+            <p>Tipografía sans-serif geométrica con el rasgo identitario de la <strong>diana / punto cero</strong> dentro de la letra "A".</p>
+          </div>
+          <div style="margin-top: 15px; font-size: 11px; font-weight: 700; color: var(--slate); background: #E2E8EE; padding: 4px 8px; border-radius: 4px;">
+            USO: Encabezados web & Papelería
+          </div>
+        </div>
+
+        <!-- CARD 2: ISOTIPO -->
+        <div class="logo-card dark-theme">
+          <div>
+            <div class="logo-img-wrapper">
+              <img src="assets/calcal_isotipo_infinito_oscuro.jpg" alt="Isotipo Infinito Facetado">
+            </div>
+            <h4 style="color: var(--white);">2. Isotipo Facetado 3D</h4>
+            <p>Símbolo del infinito tridimensional con facetado poligonal brillante en Verde Limón y Fucsia Láser.</p>
+          </div>
+          <div style="margin-top: 15px; font-size: 11px; font-weight: 700; color: var(--lime); background: #2A323D; padding: 4px 8px; border-radius: 4px;">
+            USO: Tarjetas VIP, Favicon, Redes
+          </div>
+        </div>
+
+        <!-- CARD 3: LOGO TÉCNICO -->
+        <div class="logo-card">
+          <div>
+            <div class="logo-img-wrapper">
+              <img src="assets/calcal_logo_tecnico_fondo_blanco.jpg" alt="Logo Técnico Laboratorio">
+            </div>
+            <h4>3. Logotipo Técnico</h4>
+            <p>Composición avanzada con cotas milimétricas, guías de calibración y subtítulo oficial "Laboratorio de Calibración".</p>
+          </div>
+          <div style="margin-top: 15px; font-size: 11px; font-weight: 700; color: var(--fuchsia); background: #FDE8EF; padding: 4px 8px; border-radius: 4px;">
+            USO: Stickers de equipos & Certificados
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 4: PALETA DE COLOR CORPORATIVA ==================== -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="brand-mini"><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL <span style="font-weight: 300; opacity: 0.4; margin: 0 6px;">|</span> Sistema Cromático</div>
+        <div class="slide-number">03 / PALETA DE COLOR</div>
+      </div>
+
+      <div class="section-tag">Código Cromático de Precisión</div>
+      <h2 class="section-title">Equilibrio entre Energía, Tecnología y Rigor</h2>
+      <p class="section-desc">
+        Diseñada para desmarcarse rotundamente de la competencia tradicional. Los códigos hexadecimales deben respetarse con tolerancia cero.
+      </p>
+
+      <div class="palette-grid">
+        <!-- COLOR 1: LIME -->
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: #B2D235;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Precision Lime</div>
+            <div class="swatch-hex">#B2D235</div>
+            <div class="swatch-role">RGB: 178, 210, 53<br>Aprobado / Calibrado</div>
+          </div>
+        </div>
+
+        <!-- COLOR 2: FUCHSIA -->
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: #E01A59;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Laser Fuchsia</div>
+            <div class="swatch-hex">#E01A59</div>
+            <div class="swatch-role">RGB: 224, 26, 89<br>Láser & Disrupción</div>
+          </div>
+        </div>
+
+        <!-- COLOR 3: PEARL -->
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: #E8ECEF; border-bottom: 1px solid #DFE5EA;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Lab Pearl Gray</div>
+            <div class="swatch-hex">#E8ECEF</div>
+            <div class="swatch-role">RGB: 232, 236, 239<br>Acero y Ambiente Aséptico</div>
+          </div>
+        </div>
+
+        <!-- COLOR 4: CARBON -->
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: #1A1F24;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Carbon Base</div>
+            <div class="swatch-hex">#1A1F24</div>
+            <div class="swatch-role">RGB: 26, 31, 36<br>Autoridad & Contraste</div>
+          </div>
+        </div>
+
+        <!-- COLOR 5: WHITE -->
+        <div class="swatch">
+          <div class="swatch-color" style="background-color: #FFFFFF; border-bottom: 1px solid #DFE5EA;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Pure White</div>
+            <div class="swatch-hex">#FFFFFF</div>
+            <div class="swatch-role">RGB: 255, 255, 255<br>Espacio Negativo Limpio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 5: TIPOGRAFÍA CORPORATIVA ==================== -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="brand-mini"><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL <span style="font-weight: 300; opacity: 0.4; margin: 0 6px;">|</span> Tipografía</div>
+        <div class="slide-number">04 / TIPOGRAFÍA</div>
+      </div>
+
+      <div class="section-tag">Jerarquía y Estructura</div>
+      <h2 class="section-title">Tipografías Oficiales de la Marca</h2>
+      <p class="section-desc">
+        La selección tipográfica garantiza máxima legibilidad tanto en pantallas digitales como en informes de calibración impresos de alta densidad técnica.
+      </p>
+
+      <div class="typo-grid">
+        <!-- TIPOGRAFÍA PRIMARIA -->
+        <div class="typo-card">
+          <div class="typo-sample-big">Aa Bb Cc</div>
+          <div class="typo-meta">TITULARES & LOGO: KUMBH SANS (BOLD / SEMIBOLD)</div>
+          <div class="typo-alphabet">
+            A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z<br>
+            a b c d e f g h i j k l m n ñ o p q r s t u v w x y z<br>
+            0 1 2 3 4 5 6 7 8 9 & % $ # @ ± µm nm
+          </div>
+          <p style="font-size: 13px; color: var(--slate);">
+            Geométrica, sólida y con gran impacto visual. Usada para titulares, portadas de cotizaciones y presentaciones de impacto.
+          </p>
+        </div>
+
+        <!-- TIPOGRAFÍA SECUNDARIA -->
+        <div class="typo-card">
+          <div class="typo-sample-big" style="font-family: 'Public Sans', sans-serif; font-weight: 400;">Public Sans</div>
+          <div class="typo-meta">TEXTO CONTINUO & DATOS: PUBLIC SANS (REGULAR / LIGHT)</div>
+          <div class="typo-alphabet">
+            A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z<br>
+            a b c d e f g h i j k l m n ñ o p q r s t u v w x y z<br>
+            ISO/IEC 17025:2017 | Incertidumbre expandida U = ±0.0012 mm
+          </div>
+          <p style="font-size: 13px; color: var(--slate);">
+            Altamente neutral y legible. Específicamente seleccionada para certificados de calibración, especificaciones y contratos.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 6: APLICACIONES EN EL MUNDO REAL ==================== -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="brand-mini"><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL <span style="font-weight: 300; opacity: 0.4; margin: 0 6px;">|</span> Aplicaciones Físicas</div>
+        <div class="slide-number">05 / MATERIAL CORPORATIVO</div>
+      </div>
+
+      <div class="section-tag">Colaterales de Marca</div>
+      <h2 class="section-title">Presencia Tangible en Campo y Laboratorio</h2>
+      <p class="section-desc">
+        El sistema visual cobra vida a través de herramientas de trabajo reales creadas para el día a día metrológico.
+      </p>
+
+      <div class="mockups-grid">
+        <div class="mockup-visual">
+          <img src="assets/calcal_etiqueta_calibracion_ejemplo.jpg" alt="Etiqueta de Calibración en Instrumento">
+        </div>
+
+        <div class="mockup-details">
+          <div class="mockup-pill">KIT DE APLICACIONES DISPONIBLES</div>
+
+          <div class="mockup-item">
+            <h5>1. Etiquetas / Stickers de Calibración</h5>
+            <p>Vinilo destructor con laminado protector anti-solventes, código QR trazable y distintivo verde limón "CONFORME".</p>
+          </div>
+
+          <div class="mockup-item">
+            <h5>2. Certificados de Calibración ISO 17025</h5>
+            <p>Plantilla técnica con reporte de incertidumbre, condiciones ambientales y sellos de autorización.</p>
+          </div>
+
+          <div class="mockup-item">
+            <h5>3. Hoja Membretada Institucional</h5>
+            <p>Papel bond 115g con franja en gradiente corporativo y membrete oficial para cartas y cotizaciones.</p>
+          </div>
+
+          <div class="mockup-item">
+            <h5>4. Tarjetas de Presentación Soft-Touch</h5>
+            <p>Acabado mate aterciopelado con barniz UV brillante 3D sectorizado sobre el Isotipo Infinito.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 7: DIRECTRICES (DO'S & DON'TS) ==================== -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="brand-mini"><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL <span style="font-weight: 300; opacity: 0.4; margin: 0 6px;">|</span> Normativa de Uso</div>
+        <div class="slide-number">06 / DO'S & DON'TS</div>
+      </div>
+
+      <div class="section-tag">Criterios de Integridad</div>
+      <h2 class="section-title">Lo Que Se Debe y No Se Debe Hacer</h2>
+      <p class="section-desc">
+        Para proteger el valor de la marca, cualquier persona, diseñador o proveedor externo debe acatar estrictamente las siguientes reglas:
+      </p>
+
+      <div class="rules-grid">
+        <!-- DO'S -->
+        <div class="rule-box dos">
+          <div class="rule-title">✔ LO QUE SE DEBE HACER (DO'S)</div>
+          <ul class="rule-list">
+            <li>Utilizar exclusivamente los 3 activos oficiales aprobados (Wordmark, Isotipo Facetado y Logo Técnico).</li>
+            <li>Respetar siempre el área de seguridad mínima (1X = altura de la letra 'C').</li>
+            <li>Utilizar el verde limón (`#B2D235`) como indicador visual de éxito o estado "CONFORME".</li>
+            <li>Mantener los fondos limpios: Gris Perla (`#E8ECEF`) o Carbon Base (`#1A1F24`) para máximo contraste.</li>
+            <li>En certificados impresos, asegurar que las cotas y líneas de medición milimétricas permanezcan nítidas.</li>
+          </ul>
+        </div>
+
+        <!-- DON'TS -->
+        <div class="rule-box donts">
+          <div class="rule-title">✖ LO QUE NO SE DEBE HACER (DON'TS)</div>
+          <ul class="rule-list">
+            <li><strong>NO</strong> utilizar el isotipo liso/descartado previamente. Queda rotundamente prohibido.</li>
+            <li><strong>NO</strong> estirar, comprimir o deformar las proporciones de ningún logotipo.</li>
+            <li><strong>NO</strong> alterar los códigos de color (no usar verde oscuro ni fucsia pastel).</li>
+            <li><strong>NO</strong> utilizar tipografías informales, cursivas o manuscritas.</li>
+            <li><strong>NO</strong> colocar el logo técnico sobre fondos fotográficos saturados que reduzcan la legibilidad de sus cotas.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CIERRE -->
+    <div class="brochure-footer">
+      <strong>CAL CAL</strong> — Laboratorio de Calibración & Metrología Industrial<br>
+      Documento Oficial de Marca | Versión 2026
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAL CAL — Laboratorio de Calibración & Metrología Industrial</title>
+  <meta name="description" content="CAL CAL: Venta de equipos de medición con certificado de calibración incluido, servicios de calibración bajo ISO/IEC 17025 y asesorías metrológicas.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/calcal_favicon.svg">
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <header class="header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo" id="brand-logo-link">
+          <img src="assets/calcal_isotipo_infinito.svg" alt="CAL CAL Isotipo" class="brand-logo-img">
+          <span class="brand-logo-text"><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL</span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#equipos">Venta de Equipos</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#simulador-gum">Simulador GUM</a></li>
+          <li><a href="#validador-metodos">Validador ISO 17025</a></li>
+          <li><a href="#paquete-termometria">Paquete ISO 17025</a></li>
+          <li><a href="#verificador">Validar Certificado</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="btn btn-secondary" id="btn-open-assistant">
+            ✨ Asistente IA
+          </button>
+          <button class="btn btn-primary" id="btn-open-quote">
+            Cotizar Equipos / Servicios
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span>⚡ El Nexo de Precisión | ISO/IEC 17025</span>
+          </div>
+          <h1 class="hero-title">
+            El Nexo de <span class="text-gradient">Precisión</span>,<br>
+            la Certeza de su <span class="text-gradient-fuchsia">Calidad</span>
+          </h1>
+          <p class="hero-subtitle">
+            Comercialización de instrumentación técnica con certificado de calibración incluido, trazabilidad al SI y servicios acreditados para blindar sus auditorías.
+          </p>
+          <div class="hero-actions">
+            <a href="#equipos" class="btn btn-primary">
+              🛒 Ver Catálogo de Equipos
+            </a>
+            <button class="btn btn-secondary" id="hero-btn-cert">
+              🔍 Validar Certificado Online
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-card-preview">
+          <img src="assets/calcal_etiqueta_calibracion_ejemplo.jpg" alt="CAL CAL Instrumento Calibrado" style="width:100%; border-radius:12px; margin-bottom:20px; border:1px solid var(--border-lime); box-shadow:0 10px 25px rgba(178,210,53,0.2);">
+          
+          <div class="preview-header">
+            <div>
+              <span class="status-dot"></span>
+              <strong style="margin-left: 8px; color: var(--text-bright);">Garantía CAL CAL</strong>
+            </div>
+            <span style="font-size: 0.8rem; font-weight: bold; color: var(--primary-lime);">Pack Calidad Total</span>
+          </div>
+
+          <div class="metrics-list">
+            <div class="metric-item">
+              <span class="metric-label">Equipo de Medición</span>
+              <span class="metric-value">Inspeccionado & Calibrado</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Certificado de Calibración</span>
+              <span class="metric-value" style="color: #10B981;">Incluido Trazable al SI</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Asesoría de Selección</span>
+              <span class="metric-value">Cálculo de Relación TUR Gratis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATÁLOGO DE EQUIPOS SECCIÓN -->
+  <section class="section" id="equipos" style="background: rgba(13, 27, 46, 0.4); border-top: 1px solid var(--border-glass);">
+    <div class="container">
+      <div class="section-title-wrapper">
+        <span class="section-subtitle">Generación de Flujo de Caja & Equipos</span>
+        <h2 class="section-title">Catálogo Comercial de Equipos de Medición</h2>
+        <p class="section-desc">
+          Todos los instrumentos incluyen nuestro exclusivo <strong>Pack Calidad Total</strong>: Equipo + Certificado de Calibración Trazable listo para auditoría.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Equipo 1: Termómetro Patrón Pt100 -->
+        <div class="service-card service-card-thermal">
+          <div class="service-icon">🌡️</div>
+          <span style="font-size:0.75rem; color:var(--accent-thermal); font-weight:bold;">CÓD: EQ-TERM-01</span>
+          <h3 style="margin-top:4px;">Termómetro Patrón Pt100</h3>
+          <p>
+            Sensor de alta precisión (-80 °C a 300 °C) para laboratorios y control térmico crítico en industria farmacéutica.
+          </p>
+          <div style="margin-bottom:16px; font-size:0.9rem; color:var(--text-bright);">
+            <strong>Incluye:</strong> Certificado 5 Puntos + Maletín de Protección.
+          </div>
+          <button class="btn btn-thermal btn-quote-item" data-item="EQ-TERM-01: Termómetro Patrón Pt100">
+            Cotizar Equipo + Calibración
+          </button>
+        </div>
+
+        <!-- Equipo 2: Datalogger IoT Cadena de Frío -->
+        <div class="service-card">
+          <div class="service-icon">📡</div>
+          <span style="font-size:0.75rem; color:var(--accent-cyan); font-weight:bold;">CÓD: EQ-TERM-02</span>
+          <h3 style="margin-top:4px;">Datalogger IoT Cadena de Frío</h3>
+          <p>
+            Monitoreo continuo en tiempo real (Bluetooth/Wi-Fi) para vacunas, medicamentos y transporte refrigerado.
+          </p>
+          <div style="margin-bottom:16px; font-size:0.9rem; color:var(--text-bright);">
+            <strong>Incluye:</strong> App Móvil + Certificado de Calibración Trazable.
+          </div>
+          <button class="btn btn-primary btn-quote-item" data-item="EQ-TERM-02: Datalogger IoT Cadena de Frío">
+            Cotizar Equipo + Calibración
+          </button>
+        </div>
+
+        <!-- Equipo 3: Termohigrómetro Digital -->
+        <div class="service-card">
+          <div class="service-icon">💧</div>
+          <span style="font-size:0.75rem; color:var(--accent-cyan); font-weight:bold;">CÓD: EQ-HUM-01</span>
+          <h3 style="margin-top:4px;">Termohigrómetro Digital Calibrado</h3>
+          <p>
+            Medición dual de humedad (10-95% HR) y temperatura para almacenes, bodegas de custodia y cuartos limpios.
+          </p>
+          <div style="margin-bottom:16px; font-size:0.9rem; color:var(--text-bright);">
+            <strong>Incluye:</strong> Certificado Trazable al SI.
+          </div>
+          <button class="btn btn-primary btn-quote-item" data-item="EQ-HUM-01: Termohigrómetro Digital Calibrado">
+            Cotizar Equipo + Calibración
+          </button>
+        </div>
+
+        <!-- Equipo 4: Manómetro Digital Patrón -->
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <span style="font-size:0.75rem; color:var(--accent-cyan); font-weight:bold;">CÓD: EQ-PRES-01</span>
+          <h3 style="margin-top:4px;">Manómetro Digital Patrón</h3>
+          <p>
+            Lectura de alta exactitud (0 a 700 bar) con registro de picos de presión para pruebas en tuberías e hidráulica.
+          </p>
+          <div style="margin-bottom:16px; font-size:0.9rem; color:var(--text-bright);">
+            <strong>Incluye:</strong> Informe de Calibración en Presión.
+          </div>
+          <button class="btn btn-primary btn-quote-item" data-item="EQ-PRES-01: Manómetro Digital Patrón">
+            Cotizar Equipo + Calibración
+          </button>
+        </div>
+
+        <!-- Equipo 5: Calibrador Bloque Seco Portátil -->
+        <div class="service-card service-card-thermal">
+          <div class="service-icon">🔥</div>
+          <span style="font-size:0.75rem; color:var(--accent-thermal); font-weight:bold;">CÓD: EQ-TERM-03</span>
+          <h3 style="margin-top:4px;">Calibrador de Bloque Seco (Dry-Block)</h3>
+          <p>
+            Generador térmico portátil para verificación y calibración en campo de termopares y transmisores de temperatura.
+          </p>
+          <div style="margin-bottom:16px; font-size:0.9rem; color:var(--text-bright);">
+            <strong>Incluye:</strong> Certificado Patrón + Insertos Multiorificio.
+          </div>
+          <button class="btn btn-thermal btn-quote-item" data-item="EQ-TERM-03: Calibrador Bloque Seco Portátil">
+            Cotizar Equipo + Calibración
+          </button>
+        </div>
+
+        <!-- PRODUCTO MAXIMO VALOR: Paquete ISO 17025 Llave en Mano -->
+        <div class="service-card" id="paquete-termometria" style="border-color: var(--accent-cyan); background: linear-gradient(145deg, #0D1B2E, #162C4A);">
+          <div class="service-icon" style="background: rgba(0,141,218,0.2);">👑</div>
+          <span style="font-size:0.75rem; color:#10B981; font-weight:bold;">CÓD: PKG-TERM-17025</span>
+          <h3 style="margin-top:4px; color: var(--accent-cyan);">Paquete Llave en Mano Termometría 17025</h3>
+          <p>
+            Transferencia tecnológica completa: 26 SOPs norma ISO 17025, Calculador de Incertidumbre en Excel GUM y 8 hrs de capacitación.
+          </p>
+          <div style="margin-bottom:16px; font-size:0.9rem; color:var(--text-bright);">
+            <strong>Ideal para:</strong> Laboratorios que desean acreditarse o vender servicios de calibración.
+          </div>
+          <button class="btn btn-primary btn-quote-item" data-item="PKG-TERM-17025: Paquete Llave en Mano Termometría ISO 17025">
+            Solicitar Información / Cotización
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios Metrológicos Sección -->
+  <section class="section" id="servicios">
+    <div class="container">
+      <div class="section-title-wrapper">
+        <span class="section-subtitle">Servicios Especializados</span>
+        <h2 class="section-title">Calibración, Asesoría & Acreditación</h2>
+        <p class="section-desc">
+          Respaldo técnico de excelencia para empresas industriales, laboratorios clínicos y plantas de producción.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card service-card-thermal">
+          <div class="service-icon">🌡️</div>
+          <h3>Servicio de Calibración Térmica</h3>
+          <p>Calibración por comparación de RTDs, Pt100, termopares y termómetros de líquido en vidrio.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">📜</div>
+          <h3>Asesoría ISO/IEC 17025</h3>
+          <p>Implementación completa de Sistemas de Gestión, auditorías internas y validación de métodos.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">⚙️</div>
+          <h3>Calificación de Equipos (DQ/IQ/OQ/PQ)</h3>
+          <p>Calificación de autoclaves, incubadoras, refrigeradores y sistemas de conservación crítica.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Simulador GUM Interactivo B2B Section -->
+  <section class="section" id="simulador-gum" style="background: linear-gradient(180deg, rgba(19, 23, 27, 0.95) 0%, rgba(26, 31, 36, 0.98) 100%); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+    <div class="container">
+      <div class="section-title-wrapper" style="text-align: center; margin-bottom: 35px;">
+        <span class="service-badge" style="background: rgba(178, 210, 53, 0.15); color: var(--primary-lime); border: 1px solid var(--border-lime); padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">
+          🔬 Herramienta Interactiva B2B & Capacitación
+        </span>
+        <h2 class="section-title" style="margin-top: 14px; font-size: 2.3rem;">Simulador GUM en Vivo & Calculadora de Incertidumbre</h2>
+        <p class="section-desc" style="max-width: 800px; margin: 0 auto; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
+          Diseñado para directores técnicos, jefes de control de calidad y auditores farmacéuticos. Modela presupuestos de calibración térmica en tiempo real, evalúa el diagrama de Pareto de varianza y calcula los grados efectivos de libertad bajo la Guía JCGM 100:2008 al <strong>95% de confianza</strong>.
+        </p>
+      </div>
+
+      <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 35px;">
+        <div class="service-card" style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 24px;">
+          <div class="service-icon" style="font-size: 2rem; margin-bottom: 12px;">📊</div>
+          <h3 style="color: var(--text-bright); margin-bottom: 8px;">Cálculo Dinámico al 95%</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">
+            Modifica en tiempo real los sliders de repetibilidad (<i>u<sub>A</sub></i>), resolución, deriva y estabilidad térmica, observando la actualización instantánea de la incertidumbre expandida (<i>U = k · u<sub>c</sub></i>).
+          </p>
+        </div>
+
+        <div class="service-card" style="background: var(--bg-card); border: 1px solid var(--border-lime); border-radius: var(--radius-md); padding: 24px; box-shadow: 0 8px 25px rgba(178, 210, 53, 0.08);">
+          <div class="service-icon" style="font-size: 2rem; margin-bottom: 12px;">🎯</div>
+          <h3 style="color: var(--primary-lime); margin-bottom: 8px;">Análisis de Pareto & Welch-Satt.</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">
+            Identifica con precisión qué magnitud aporta el mayor porcentaje de varianza y determina el factor <i>k</i> exacto con la distribución <i>t</i> de Student cuando <i>ν<sub>eff</sub> &lt; 60</i>.
+          </p>
+        </div>
+
+        <div class="service-card" style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 24px;">
+          <div class="service-icon" style="font-size: 2rem; margin-bottom: 12px;">🎓</div>
+          <h3 style="color: var(--text-bright); margin-bottom: 8px;">6 Lecciones & Autoevaluación</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">
+            Incluye un módulo pedagógico para entrenamiento de metrólogos y un cuestionario interactivo de autoevaluación conforme a la Cláusula 6.2 de ISO/IEC 17025:2017.
+          </p>
+        </div>
+      </div>
+
+      <div style="text-align: center;">
+        <a href="simulador/index.html" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; font-size: 1.05rem; font-weight: 700; border-radius: var(--radius-md); text-decoration: none; box-shadow: var(--shadow-glow);">
+          <span>🚀 Abrir Simulador GUM Interactivo</span>
+          <span style="font-size: 1.2rem;">↗</span>
+        </a>
+        <div style="margin-top: 12px; font-size: 0.82rem; color: var(--text-dim);">
+          Acceso libre sin registro · Compatible con dispositivos móviles y pantallas de laboratorio
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Validador Estadístico Metrológico ISO 17025 Section -->
+  <section class="section" id="validador-metodos" style="background: linear-gradient(180deg, rgba(26, 31, 36, 0.98) 0%, rgba(18, 22, 26, 1) 100%); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+    <div class="container">
+      <div class="section-title-wrapper" style="text-align: center; margin-bottom: 35px;">
+        <span class="service-badge" style="background: rgba(224, 26, 89, 0.15); color: var(--primary-fuchsia); border: 1px solid rgba(224, 26, 89, 0.4); padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">
+          ⚙️ Motor de Validación Estadística v2.0 · §7.2 & §7.11
+        </span>
+        <h2 class="section-title" style="margin-top: 14px; font-size: 2.3rem;">Validador Estadístico de Métodos de Medición</h2>
+        <p class="section-desc" style="max-width: 800px; margin: 0 auto; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
+          Plataforma analítica v2.0 desarrollada en Python y certificada al 100% con <strong>47 benchmarks del NIST (Norris) e ISO 5725-2</strong>. Integra 10 módulos especializados: Normalidad (Shapiro-Wilk), Outliers (Grubbs), Precisión Intermedia, ANOVA/Kruskal-Wallis, Mandel &amp; WLS, EURAMET cg-20, Deriva (ISO 10012), Cartas de Control (ISO 7870), Error Normalizado <i>E<sub>n</sub></i> (ISO 17043) y Reglas de Decisión ILAC-G8 / Monte Carlo JCGM 101.
+        </p>
+      </div>
+
+      <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 35px;">
+        <div class="service-card" style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 24px;">
+          <div class="service-icon" style="font-size: 2rem; margin-bottom: 12px;">📈</div>
+          <h3 style="color: var(--text-bright); margin-bottom: 8px;">Normalidad, Grubbs & Precisión</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">
+            Verificación de Shapiro-Wilk, detección de atípicos mediante Grubbs exacto (ISO 5725-2) y cálculo de varianzas intra/inter-operador (<i>s<sub>r</sub></i>, <i>s<sub>L</sub></i>, <i>s<sub>R</sub></i>) al 95% de confianza.
+          </p>
+        </div>
+
+        <div class="service-card" style="background: var(--bg-card); border: 1px solid var(--border-lime); border-radius: var(--radius-md); padding: 24px; box-shadow: 0 8px 25px rgba(178, 210, 53, 0.08);">
+          <div class="service-icon" style="font-size: 2rem; margin-bottom: 12px;">⚖️</div>
+          <h3 style="color: var(--primary-lime); margin-bottom: 8px;">Deriva, Shewhart & CUSUM</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">
+            Modelado de deriva histórica de patrones (OIML D10 / ISO 10012), cartas de control <i>X̄-R</i> y CUSUM tabular (§7.7) y ensayos de aptitud con estadístico <i>E<sub>n</sub></i> y <i>z</i>-score.
+          </p>
+        </div>
+
+        <div class="service-card" style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 24px;">
+          <div class="service-icon" style="font-size: 2rem; margin-bottom: 12px;">📐</div>
+          <h3 style="color: var(--text-bright); margin-bottom: 8px;">ILAC-G8 & Monte Carlo JCGM 101</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">
+            Bandas de guarda determinísticas (<i>w = r · U</i>), propagación estocástica de Monte Carlo, Test de Mandel/WLS y caracterización térmica EURAMET cg-20.
+          </p>
+        </div>
+      </div>
+
+      <div style="text-align: center; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+        <a href="simulador/index.html" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; font-size: 1rem; font-weight: 700; border-radius: var(--radius-md); text-decoration: none;">
+          <span>🧪 Probar Simulador Online (GUM & Monte Carlo)</span>
+          <span style="font-size: 1.1rem;">↗</span>
+        </a>
+        <a href="informe_ejecutivo.html" target="_blank" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; font-size: 1rem; font-weight: 700; border-radius: var(--radius-md); text-decoration: none; border: 1px solid var(--primary-lime); color: var(--primary-lime);">
+          <span>📊 Ver Informe Ejecutivo & Arquitectura v2.0</span>
+          <span style="font-size: 1.1rem;">↗</span>
+        </a>
+        <div style="width: 100%; margin-top: 8px; font-size: 0.82rem; color: var(--text-dim);">
+          47/47 Pruebas de Referencia NIST Superadas (100% PASS) &bull; Registro SGC: REG-SOP14-02
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificate Validator Section -->
+  <section class="section validator-section" id="verificador">
+    <div class="container">
+      <div class="validator-box">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <span class="service-badge" style="background: rgba(0, 141, 218, 0.15); color: var(--accent-cyan);">
+            🔒 Sistema de Validación Digital
+          </span>
+          <h2 style="font-size: 2rem; margin-top: 10px;">Verificador de Certificados de Calibración</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            Ingrese el número de certificado de CAL CAL (Ejemplo: <code>CAL-2026-TERM-001</code>) para verificar su trazabilidad y autenticidad.
+          </p>
+        </div>
+
+        <form class="validator-form" id="form-validator">
+          <input type="text" class="validator-input" id="input-cert-code" placeholder="Código de certificado (Ej: CAL-2026-TERM-001)" required>
+          <button type="submit" class="btn btn-primary" id="btn-search-cert">
+            Verificar Certificado
+          </button>
+        </form>
+
+        <div class="validator-result" id="validator-result">
+          <!-- Dinámico mediante JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Asistente Metrológico IA -->
+  <div class="modal-overlay" id="modal-assistant">
+    <div class="modal-container">
+      <button class="modal-close" id="close-modal-assistant">&times;</button>
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <span style="font-size: 1.5rem;">🤖</span>
+        <h3>Asistente Metrológico CAL CAL (Gemini AI)</h3>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        Resuelve tus dudas sobre calibración de termómetros, requisitos ISO/IEC 17025 e incertidumbre en tiempo real.
+      </p>
+
+      <div class="chat-box">
+        <div class="chat-messages" id="chat-messages">
+          <div class="chat-msg chat-msg-bot">
+            ¡Hola! Soy <strong>Nicolle</strong>, el Asistente de IA de CAL CAL. ¿En qué te puedo asesorar hoy sobre venta de equipos, calibración o ISO 17025?
+          </div>
+        </div>
+        <form class="chat-input-area" id="chat-form">
+          <input type="text" class="chat-input" id="chat-input" placeholder="Escribe tu consulta (Ej: ¿Qué incluye el Pack Calidad Total de equipos?)..." required>
+          <button type="submit" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Cotización -->
+  <div class="modal-overlay" id="modal-quote">
+    <div class="modal-container">
+      <button class="modal-close" id="close-modal-quote">&times;</button>
+      <h3 style="margin-bottom: 8px;">Solicitud de Cotización Comercial</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+        Completa los datos para recibir una oferta ejecutiva inmediata con certificado de calibración incluido.
+      </p>
+
+      <form id="form-quote" style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Nombre o Empresa:</label>
+          <input type="text" class="validator-input" style="width:100%" placeholder="Ej: Laboratorio BioCalid S.A.S" required>
+        </div>
+        <div>
+          <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Correo Electrónico / WhatsApp:</label>
+          <input type="email" class="validator-input" style="width:100%" placeholder="ejemplo@empresa.com" required>
+        </div>
+        <div>
+          <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Item o Servicio a Cotizar:</label>
+          <input type="text" class="validator-input" id="quote-item-selected" style="width:100%" placeholder="Ej: EQ-TERM-01 Termómetro Patrón Pt100" required>
+        </div>
+        <div>
+          <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Cantidad / Observaciones:</label>
+          <textarea class="validator-input" style="width:100%; height:70px; resize:none;" placeholder="Indique cantidad requerida o especificaciones adicionales..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Solicitud de Cotización</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 16px;">
+            <img src="assets/calcal_isotipo_infinito.svg" alt="CAL CAL Isotipo" class="brand-logo-img">
+            <span class="brand-logo-text"><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 320px;">
+            CAL CAL — Laboratorio de Calibración & Metrología Industrial. Trazabilidad internacional y aseguramiento de la calidad.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Venta de Equipos</h4>
+          <ul class="footer-links">
+            <li><a href="#equipos">Termómetros Patrón Pt100</a></li>
+            <li><a href="#equipos">Dataloggers Cadena de Frío</a></li>
+            <li><a href="#equipos">Termohigrómetros Digitales</a></li>
+            <li><a href="#equipos">Manómetros Patrón</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Productos & Recursos</h4>
+          <ul class="footer-links">
+            <li><a href="#paquete-termometria">Paquete ISO 17025 Llave en Mano</a></li>
+            <li><a href="simulador/index.html" target="_blank">Simulador GUM Interactivo</a></li>
+            <li><a href="brochure.html" target="_blank">Brochure & Manual de Marca</a></li>
+            <li><a href="presentacion.html" target="_blank">Presentación Corporativa</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul class="footer-links">
+            <li><span style="color: var(--text-muted);">Director Técnico:</span> JuanFer Vélez</li>
+            <li><span style="color: var(--text-muted);">Asistente Metrológica:</span> Nicolle</li>
+            <li><span style="color: var(--text-muted);">Ubicación:</span> Colombia</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 CAL CAL. Todos los derechos reservados. Laboratorio de Calibración & Metrología Industrial.
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

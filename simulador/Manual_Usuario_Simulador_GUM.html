@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAL-MAN-SIM-01 — Manual de Operación y Fundamentos Metrológicos del Simulador GUM | CAL CAL S.A.S.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700;800;900&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lime: #B2D235;
+      --fuchsia: #E01A59;
+      --carbon: #1A1F24;
+      --pearl: #E8ECEF;
+      --pearl-light: #F8FAFC;
+      --slate: #4A5A6C;
+      --border-color: #D7E0EA;
+      --white: #FFFFFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Public Sans', sans-serif;
+      background-color: #F1F4F8;
+      color: var(--carbon);
+      line-height: 1.65;
+      font-size: 10.5pt;
+      padding: 30px 15px;
+    }
+
+    .document-page {
+      max-width: 950px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 50px 60px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    /* TABLA DE ENCABEZADO DE CONTROL DOCUMENTAL ISO 17025 */
+    .control-header-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      border: 2px solid var(--carbon);
+    }
+
+    .control-header-table td {
+      border: 1px solid var(--carbon);
+      padding: 10px 14px;
+      vertical-align: middle;
+    }
+
+    .header-logo-cell {
+      width: 28%;
+      text-align: center;
+      background: var(--pearl-light);
+    }
+
+    .brand-title {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--carbon);
+      line-height: 1;
+    }
+
+    .brand-title .c-fuchsia { color: var(--fuchsia); }
+    .brand-title .c-lime { color: var(--lime); }
+
+    .brand-lab {
+      font-size: 8pt;
+      color: var(--slate);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    .header-title-cell {
+      width: 44%;
+      text-align: center;
+    }
+
+    .doc-category {
+      font-size: 8pt;
+      font-weight: 800;
+      color: var(--fuchsia);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 3px;
+    }
+
+    .doc-main-title {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 12pt;
+      font-weight: 800;
+      color: var(--carbon);
+      line-height: 1.3;
+    }
+
+    .header-meta-cell {
+      width: 28%;
+      font-size: 8.5pt;
+      background: var(--pearl-light);
+      line-height: 1.4;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+
+    .meta-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--carbon);
+    }
+
+    .status-badge {
+      display: inline-block;
+      background: var(--carbon);
+      color: var(--lime);
+      font-size: 7.5pt;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.5px;
+      margin-top: 3px;
+    }
+
+    /* BARRA DECORATIVA */
+    .color-accent-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--fuchsia) 0%, var(--lime) 50%, var(--carbon) 100%);
+      margin-bottom: 35px;
+      border-radius: 2px;
+    }
+
+    /* ESTILOS DEL CUERPO MARKDOWN */
+    .doc-body {
+      color: var(--carbon);
+    }
+
+    .doc-body h1, .doc-body h2, .doc-body h3, .doc-body h4 {
+      font-family: 'Kumbh Sans', sans-serif;
+      color: var(--carbon);
+      margin-top: 28px;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .doc-body h1 {
+      font-size: 18pt;
+      border-bottom: 2px solid var(--pearl);
+      padding-bottom: 8px;
+      display: none; /* Ya está en el encabezado de control */
+    }
+
+    .doc-body h2 {
+      font-size: 14pt;
+      border-bottom: 1px solid var(--pearl);
+      padding-bottom: 6px;
+      color: var(--carbon);
+    }
+
+    .doc-body h3 { font-size: 12pt; color: #2A3644; }
+    .doc-body h4 { font-size: 10.5pt; color: var(--slate); }
+
+    .doc-body p {
+      margin-bottom: 14px;
+      text-align: justify;
+    }
+
+    .doc-body ul, .doc-body ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    .doc-body li {
+      margin-bottom: 6px;
+    }
+
+    .doc-body blockquote {
+      background: var(--pearl-light);
+      border-left: 4px solid var(--lime);
+      padding: 12px 18px;
+      margin: 18px 0;
+      font-style: italic;
+      color: var(--slate);
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* TABLAS */
+    .doc-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 9pt;
+    }
+
+    .doc-body th {
+      background: var(--carbon);
+      color: var(--white);
+      font-family: 'Kumbh Sans', sans-serif;
+      font-weight: 700;
+      padding: 9px 12px;
+      text-align: left;
+      border: 1px solid var(--carbon);
+    }
+
+    .doc-body td {
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+
+    .doc-body tr:nth-child(even) {
+      background-color: var(--pearl-light);
+    }
+
+    /* CÓDIGO */
+    .doc-body pre, .doc-body code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .doc-body pre {
+      background: #1E252D;
+      color: #E2E8F0;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 8.5pt;
+      margin: 16px 0;
+      border-left: 3px solid var(--lime);
+    }
+
+    .doc-body :not(pre) > code {
+      background: var(--pearl);
+      color: var(--fuchsia);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 8.5pt;
+    }
+
+    .doc-body hr {
+      border: none;
+      height: 1px;
+      background: var(--border-color);
+      margin: 25px 0;
+    }
+
+    /* FIRMAS DE CONTROL DOCUMENTAL */
+    .signatures-block {
+      margin-top: 50px;
+      border-top: 2px solid var(--carbon);
+      padding-top: 25px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+
+    .sig-col {
+      padding: 0 10px;
+    }
+
+    .sig-line {
+      border-bottom: 1px solid var(--carbon);
+      margin-bottom: 8px;
+      height: 45px;
+    }
+
+    .sig-role {
+      font-size: 8pt;
+      font-weight: 800;
+      color: var(--fuchsia);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .sig-name {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 9pt;
+      font-weight: 700;
+      color: var(--carbon);
+    }
+
+    .sig-title {
+      font-size: 7.5pt;
+      color: var(--slate);
+    }
+
+    /* FOOTER */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      font-size: 8pt;
+      color: var(--slate);
+    }
+
+    /* PRINT READY STYLES (PDF AUDITABLE) */
+    @media print {
+      body {
+        background: var(--white);
+        padding: 0;
+      }
+      .document-page {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .btn-print-floating {
+        display: none !important;
+      }
+      .control-header-table th, .control-header-table td,
+      .doc-body th, .doc-body td {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+    /* BOTÓN FLOTANTE DE IMPRESIÓN / GUARDAR PDF */
+    .btn-print-floating {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: var(--carbon);
+      color: var(--white);
+      border: 2px solid var(--lime);
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-family: 'Kumbh Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .btn-print-floating:hover {
+      background: var(--lime);
+      color: var(--carbon);
+      border-color: var(--lime);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BOTÓN FLOTANTE PARA GUARDAR COMO PDF DIRECTAMENTE -->
+  <button class="btn-print-floating" onclick="window.print()">
+    🖨️ Imprimir / Guardar como PDF
+  </button>
+
+  <div class="document-page">
+
+    <!-- ENCABEZADO DE CONTROL DOCUMENTAL ISO/IEC 17025 -->
+    <table class="control-header-table">
+      <tr>
+        <td class="header-logo-cell">
+          <div class="brand-title"><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL</div>
+          <div class="brand-lab">Laboratorio de Calibración</div>
+        </td>
+        <td class="header-title-cell">
+          <div class="doc-category">Manual de Software Metrológico</div>
+          <div class="doc-main-title">Manual de Operación y Fundamentos Metrológicos del Simulador GUM</div>
+        </td>
+        <td class="header-meta-cell">
+          <div class="meta-row"><span>Código:</span> <span class="meta-val">CAL-MAN-SIM-01</span></div>
+          <div class="meta-row"><span>Versión:</span> <span class="meta-val">1.0</span></div>
+          <div class="meta-row"><span>Vigencia:</span> <span class="meta-val">2026-09-18</span></div>
+          <div style="text-align:right;">
+            <span class="status-badge">DOCUMENTO CONTROLADO</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="color-accent-bar"></div>
+
+    <!-- CUERPO DEL DOCUMENTO -->
+    <div class="doc-body">
+      <h1>🔬 Simulador de Incertidumbre de Medición &amp; Módulo de Capacitación — CALCAL</h1>
+<p><strong>Laboratorio de Calibración y Calidad — CALCAL</strong><br />
+<em>Desarrollado bajo los lineamientos de la Guía JCGM 100:2008 (GUM) e ISO/IEC 17025:2017.</em></p>
+<hr />
+<h2>🎯 1. Propósito y Alcance</h2>
+<p>Esta herramienta web interactiva permite modelar, calcular y visualizar en tiempo real presupuestos de incertidumbre de medición para cualquier magnitud metrológica, con un enfoque principal en <strong>Temperatura (°C)</strong>, la magnitud bandera y en proceso de acreditación de <strong>CALCAL</strong>.</p>
+<hr />
+<h2>🚀 2. Módulos Incorporados</h2>
+<h3>1. 📊 Simulador Interactivo GUM</h3>
+<ul>
+<li><strong>Entradas Dinámicas con Sliders:</strong> Permite alterar en tiempo real la repetibilidad experimental ($u_A$), la incertidumbre del patrón, la resolución del indicador, la estabilidad térmica del baño o pozo seco, y la uniformidad espacial.</li>
+<li><strong>Cálculo Automático de Welch-Satterthwaite:</strong> Evalúa los grados de libertad efectivos ($\nu_{eff}$) para ajustar dinámicamente el factor de cobertura $k$ según la distribución t de Student al 95% de confianza.</li>
+<li><strong>Análisis Gráfico de Pareto (% Varianza):</strong> Gráfico de rosquilla (<em>Donut</em>) y gráfico de barras ordenado para identificar de inmediato qué fuente domina la incertidumbre.</li>
+<li><strong>Curva de Probabilidad Combinada:</strong> Representación gráfica de la campana normal $N(y, u_c^2)$ con los intervalos $\pm u_c$ y $\pm U$.</li>
+<li><strong>Tabla de Balance Formal:</strong> Formato oficial para auditorías ONAC / ISO 17025, con exportación a CSV/Excel y función de copiar al portapapeles.</li>
+</ul>
+<h3>2. 🎓 Módulo Pedagógico de Capacitación</h3>
+<p>Consta de 6 lecciones metrológicas estructuradas para el entrenamiento del personal técnico:<br />
+1. <em>¿Por qué el "Error" ya no es suficiente?</em><br />
+2. <em>Evaluación Tipo A: Métodos Estadísticos y Grados de Libertad.</em><br />
+3. <em>Evaluación Tipo B: Distribuciones de Probabilidad (Normal, Rectangular, Triangular).</em><br />
+4. <em>Ley de Propagación de Incertidumbres y Coeficientes de Sensibilidad ($c_i$).</em><br />
+5. <em>Fórmula de Welch-Satterthwaite y el mito del $k = 2.00$.</em><br />
+6. <em>Reglas de Decisión y Declaración de Conformidad (ILAC G8).</em></p>
+<h3>3. 🌡️ Caso de Estudio: Magnitud Temperatura (CALCAL)</h3>
+<ul>
+<li>Modelo matemático completo para la calibración de termómetros digitales por comparación directa en medio isotermo:<br />
+  $$\Delta T = T_{patrón} - T_{indicada} + \delta T_{res} + \delta T_{estab} + \delta T_{unif} + \delta T_{deriva}$$</li>
+<li>Desglose de las 6 fuentes de incertidumbre típicas en calibración de RTD Pt100 y termopares en bloque seco o baño líquido.</li>
+</ul>
+<h3>4. ✅ Cuestionario de Autoevaluación</h3>
+<ul>
+<li>Preguntas técnicas interactivas de opción múltiple con calificación instantánea y retroalimentación justificada metrológicamente para verificar la competencia técnica del personal (Cláusula 6.2 de ISO 17025).</li>
+</ul>
+<hr />
+<h2>💻 3. Cómo Ejecutar la Aplicación</h2>
+<p>Basta con hacer doble clic en el archivo:<br />
+👉 <strong><code>Iniciar_Simulador.bat</code></strong></p>
+<p>O abrir directamente con cualquier navegador web (Chrome, Edge, Firefox):<br />
+👉 <strong><code>index.html</code></strong></p>
+<p>No requiere conexión a servidores ni instalaciones adicionales; corre 100% en local y offline.</p>
+    </div>
+
+    <!-- FIRMAS DE APROBACIÓN SGC -->
+    <div class="signatures-block">
+      <div class="sig-col">
+        <div class="sig-line"></div>
+        <div class="sig-role">Elaborado por:</div>
+        <div class="sig-name">Especialista Metrólogo</div>
+        <div class="sig-title">Área Técnica CAL CAL</div>
+      </div>
+      <div class="sig-col">
+        <div class="sig-line"></div>
+        <div class="sig-role">Revisado por:</div>
+        <div class="sig-name">Nicolle (IA Metrológica)</div>
+        <div class="sig-title">Aseguramiento de Calidad SGC</div>
+      </div>
+      <div class="sig-col">
+        <div class="sig-line"></div>
+        <div class="sig-role">Aprobado por:</div>
+        <div class="sig-name">Juan Fernando Vélez Granda</div>
+        <div class="sig-title">Director Técnico & Gerente General</div>
+      </div>
+    </div>
+
+    <!-- PIE DEL DOCUMENTO -->
+    <div class="doc-footer">
+      <div>CAL CAL S.A.S. — Sistema de Gestión Acreditado conforme a ISO/IEC 17025:2017</div>
+      <div>Código: CAL-MAN-SIM-01 | Versión 1.0</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

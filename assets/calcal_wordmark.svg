@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 160" width="100%" height="100%">
+  <defs>
+    <style>
+      .char-carbon { fill: #1A1F24; }
+      .laser-dot { fill: #E01A59; }
+      .laser-reticle { stroke: #E01A59; stroke-width: 1.5; stroke-linecap: round; }
+      .lime-accent { fill: #B2D235; }
+    </style>
+  </defs>
+
+  <!-- ================= PALABRA 1: CAL ================= -->
+  <!-- Letra C (x: 20 a 110) -->
+  <path class="char-carbon" d="M 110 40 L 92 56 C 85 47 75 42 63 42 C 43 42 27 58 27 80 C 27 102 43 118 63 118 C 75 118 85 113 92 104 L 110 120 C 98 133 82 140 63 140 C 29 140 3 113 3 80 C 3 47 29 20 63 20 C 82 20 98 27 110 40 Z"/>
+
+  <!-- Letra A con Diana Calibradora (x: 125 a 215) -->
+  <g transform="translate(125, 0)">
+    <!-- Cuerpo de la A -->
+    <path class="char-carbon" d="M 45 20 L 88 138 L 65 138 L 56 112 L 34 112 L 25 138 L 2 138 L 45 20 Z M 45 52 L 39 94 L 51 94 L 45 52 Z"/>
+    <!-- Diana / Retícula de Calibración Láser en el centro de la A -->
+    <circle cx="45" cy="74" r="5" class="laser-dot"/>
+    <line x1="45" y1="63" x2="45" y2="67" class="laser-reticle"/>
+    <line x1="45" y1="81" x2="45" y2="85" class="laser-reticle"/>
+    <line x1="34" y1="74" x2="38" y2="74" class="laser-reticle"/>
+    <line x1="52" y1="74" x2="56" y2="74" class="laser-reticle"/>
+    <circle cx="45" cy="74" r="9" fill="none" stroke="#E01A59" stroke-width="1" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- Letra L (x: 230 a 300) -->
+  <path class="char-carbon" d="M 230 22 L 253 22 L 253 118 L 302 118 L 302 138 L 230 138 Z"/>
+
+  <!-- Separador / Punto Metrológico Central (x: 325) -->
+  <rect x="330" y="74" width="12" height="12" rx="2" class="lime-accent" transform="rotate(45 336 80)"/>
+
+  <!-- ================= PALABRA 2: CAL ================= -->
+  <!-- Letra C (x: 370 a 460) -->
+  <path class="char-carbon" d="M 460 40 L 442 56 C 435 47 425 42 413 42 C 393 42 377 58 377 80 C 377 102 393 118 413 118 C 425 118 435 113 442 104 L 460 120 C 448 133 432 140 413 140 C 379 140 353 113 353 80 C 353 47 379 20 413 20 C 432 20 448 27 460 40 Z"/>
+
+  <!-- Letra A con Diana Calibradora (x: 475 a 565) -->
+  <g transform="translate(475, 0)">
+    <!-- Cuerpo de la A -->
+    <path class="char-carbon" d="M 45 20 L 88 138 L 65 138 L 56 112 L 34 112 L 25 138 L 2 138 L 45 20 Z M 45 52 L 39 94 L 51 94 L 45 52 Z"/>
+    <!-- Diana / Retícula de Calibración Láser en el centro de la A -->
+    <circle cx="45" cy="74" r="5" class="laser-dot"/>
+    <line x1="45" y1="63" x2="45" y2="67" class="laser-reticle"/>
+    <line x1="45" y1="81" x2="45" y2="85" class="laser-reticle"/>
+    <line x1="34" y1="74" x2="38" y2="74" class="laser-reticle"/>
+    <line x1="52" y1="74" x2="56" y2="74" class="laser-reticle"/>
+    <circle cx="45" cy="74" r="9" fill="none" stroke="#E01A59" stroke-width="1" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- Letra L (x: 580 a 650) -->
+  <path class="char-carbon" d="M 580 22 L 603 22 L 603 118 L 652 118 L 652 138 L 580 138 Z"/>
+</svg>

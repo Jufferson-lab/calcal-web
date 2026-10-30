@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAL CAL — Informe Ejecutivo Integral & Potencial Estratégico 360°</title>
+  <link rel="icon" type="image/svg+xml" href="assets/calcal_favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Kumbh+Sans:wght@600;700;800;900&family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --carbon-deep: #111519;
+      --carbon-base: #1A1F24;
+      --carbon-card: #212830;
+      --navy-deep: #0B192C;
+      --fuchsia: #E01A59;
+      --fuchsia-soft: rgba(224, 26, 89, 0.14);
+      --lime: #B2D235;
+      --lime-soft: rgba(178, 210, 53, 0.14);
+      --cyan: #008DDA;
+      --cyan-soft: rgba(0, 141, 218, 0.14);
+      --pearl: #F4F6F8;
+      --muted: #94A3B8;
+      --border: rgba(255, 255, 255, 0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at top right, #182638 0%, var(--carbon-deep) 45%, #0d1014 100%);
+      color: var(--pearl);
+      font-family: 'Public Sans', sans-serif;
+      line-height: 1.6;
+      padding: 36px 24px 64px;
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    /* ================= CABECERA EJECUTIVA CON LOGO OFICIAL SVG ================= */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(26, 31, 36, 0.96) 0%, rgba(11, 25, 44, 0.96) 100%);
+      border: 1px solid rgba(178, 210, 53, 0.35);
+      border-left: 6px solid var(--fuchsia);
+      border-radius: 24px;
+      padding: 36px 40px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(224, 26, 89, 0.18) 0%, rgba(178, 210, 53, 0.08) 50%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 26px;
+      margin-bottom: 26px;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .brand-isotipo {
+      width: 118px;
+      height: 68px;
+      flex-shrink: 0;
+    }
+
+    .brand-titles h1 {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #FFFFFF;
+      line-height: 1.1;
+    }
+
+    .brand-titles h1 .c-fuchsia { color: var(--fuchsia); }
+    .brand-titles h1 .c-lime { color: var(--lime); }
+
+    .brand-titles .slogan {
+      font-size: 14px;
+      color: var(--lime);
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      margin-top: 4px;
+    }
+
+    .brand-titles .norm-tags {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 12px;
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-fuchsia {
+      background: var(--fuchsia);
+      color: #FFFFFF;
+      box-shadow: 0 8px 20px rgba(224, 26, 89, 0.35);
+    }
+    .btn-fuchsia:hover { background: #c5144c; transform: translateY(-2px); }
+
+    .btn-lime {
+      background: var(--lime);
+      color: #111519;
+      box-shadow: 0 8px 20px rgba(178, 210, 53, 0.25);
+    }
+    .btn-lime:hover { background: #9ec022; transform: translateY(-2px); }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--pearl);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    .btn-outline:hover { border-color: var(--lime); color: var(--lime); }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 960px) {
+      .hero-meta { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .meta-box {
+      background: rgba(17, 21, 25, 0.72);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 18px;
+    }
+
+    .meta-box .lbl {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+    }
+
+    .meta-box .val {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-top: 3px;
+    }
+
+    .meta-box .val.mono {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--lime);
+    }
+
+    /* ================= TARJETAS KPI EJECUTIVAS ================= */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    @media (max-width: 1100px) {
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .kpi-card {
+      background: var(--carbon-card);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--lime);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .kpi-card.fuchsia { border-top-color: var(--fuchsia); }
+    .kpi-card.cyan { border-top-color: var(--cyan); }
+
+    .kpi-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 30px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .kpi-num span {
+      font-size: 16px;
+      color: var(--lime);
+    }
+
+    .kpi-card.fuchsia .kpi-num span { color: var(--fuchsia); }
+    .kpi-card.cyan .kpi-num span { color: #38BDF8; }
+
+    .kpi-title {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--pearl);
+      margin-top: 4px;
+    }
+
+    .kpi-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ================= SECCIONES GENERALES ================= */
+    .section {
+      margin-bottom: 42px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--lime-soft);
+      color: var(--lime);
+      border: 1px solid rgba(178, 210, 53, 0.35);
+    }
+
+    /* ================= MATRIZ DE LOS 10 PILARES CONSTRUIDOS ================= */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 960px) {
+      .pillars-grid { grid-template-columns: 1fr; }
+    }
+
+    .pillar-card {
+      background: rgba(33, 40, 48, 0.88);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .pillar-card:hover {
+      border-color: rgba(178, 210, 53, 0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    .pillar-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .pillar-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--fuchsia);
+      background: var(--fuchsia-soft);
+      border: 1px solid rgba(224, 26, 89, 0.35);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .pillar-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--lime);
+      background: var(--lime-soft);
+      border: 1px solid rgba(178, 210, 53, 0.35);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .pillar-card h3 {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .pillar-list {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+
+    .pillar-list li {
+      font-size: 13.5px;
+      color: #CBD5E1;
+      margin-bottom: 6px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .pillar-list li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--lime);
+      font-weight: bold;
+    }
+
+    .pillar-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+
+    .pillar-link {
+      color: #38BDF8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .pillar-link:hover { text-decoration: underline; color: var(--lime); }
+
+    /* ================= MOTOR MATEMÁTICO E INGENIERÍA ================= */
+    .math-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .math-grid { grid-template-columns: 1fr; }
+    }
+
+    .math-card {
+      background: linear-gradient(160deg, rgba(17, 25, 40, 0.95), rgba(26, 31, 36, 0.95));
+      border: 1px solid rgba(0, 141, 218, 0.3);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .math-card h4 {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .formula-box {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      background: rgba(11, 25, 44, 0.95);
+      border-left: 3px solid var(--lime);
+      padding: 12px 14px;
+      border-radius: 8px;
+      color: var(--lime);
+      margin: 10px 0 12px;
+      overflow-x: auto;
+    }
+
+    .math-card p {
+      font-size: 13px;
+      color: #CBD5E1;
+    }
+
+    /* ================= POTENCIAL COMERCIAL Y ESCALABILIDAD (4 LÍNEAS) ================= */
+    .potential-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 960px) {
+      .potential-grid { grid-template-columns: 1fr; }
+    }
+
+    .potential-card {
+      background: linear-gradient(135deg, rgba(33, 40, 48, 0.95) 0%, rgba(20, 26, 33, 0.95) 100%);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--lime);
+      border-radius: 18px;
+      padding: 26px;
+    }
+
+    .potential-card.p-fuchsia { border-left-color: var(--fuchsia); }
+    .potential-card.p-cyan { border-left-color: var(--cyan); }
+    .potential-card.p-amber { border-left-color: #F59E0B; }
+
+    .potential-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--lime);
+      margin-bottom: 6px;
+    }
+
+    .potential-card.p-fuchsia .potential-tag { color: var(--fuchsia); }
+    .potential-card.p-cyan .potential-tag { color: #38BDF8; }
+    .potential-card.p-amber .potential-tag { color: #FBBF24; }
+
+    .potential-card h3 {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+    }
+
+    .potential-card p {
+      font-size: 13.5px;
+      color: #CBD5E1;
+      margin-bottom: 12px;
+    }
+
+    /* ================= HOJA DE RUTA EN MEMORIA ================= */
+    .roadmap-box {
+      background: rgba(11, 25, 44, 0.78);
+      border: 1px solid rgba(178, 210, 53, 0.35);
+      border-radius: 20px;
+      padding: 28px 32px;
+    }
+
+    .roadmap-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 960px) {
+      .roadmap-steps { grid-template-columns: 1fr; }
+    }
+
+    .step-item {
+      background: rgba(26, 31, 36, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--fuchsia);
+      margin-bottom: 6px;
+    }
+
+    .step-item h4 {
+      font-family: 'Kumbh Sans', sans-serif;
+      font-size: 16px;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+
+    .step-item p {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    /* ================= PIE DE PÁGINA CORPORATIVO ================= */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    @media print {
+      body { background: #111519 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 12px; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ================= CABECERA EJECUTIVA ================= -->
+    <header class="hero-banner">
+      <div class="hero-top">
+        <div class="brand-lockup">
+          <!-- Isotipo Vectorial Oficial CAL CAL -->
+          <svg class="brand-isotipo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280">
+            <defs>
+              <linearGradient id="lime-top" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#D6EF6E"/>
+                <stop offset="100%" stop-color="#B2D235"/>
+              </linearGradient>
+              <linearGradient id="lime-main" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#B2D235"/>
+                <stop offset="100%" stop-color="#8FAE1E"/>
+              </linearGradient>
+              <linearGradient id="lime-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8FAE1E"/>
+                <stop offset="100%" stop-color="#67800E"/>
+              </linearGradient>
+              <linearGradient id="lime-light" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#EDF9A8"/>
+                <stop offset="100%" stop-color="#C5E445"/>
+              </linearGradient>
+              <linearGradient id="fuchsia-top" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FF528A"/>
+                <stop offset="100%" stop-color="#E01A59"/>
+              </linearGradient>
+              <linearGradient id="fuchsia-main" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#E01A59"/>
+                <stop offset="100%" stop-color="#B80E42"/>
+              </linearGradient>
+              <linearGradient id="fuchsia-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#B80E42"/>
+                <stop offset="100%" stop-color="#7C0428"/>
+              </linearGradient>
+              <linearGradient id="fuchsia-light" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFA1C2"/>
+                <stop offset="100%" stop-color="#F23674"/>
+              </linearGradient>
+            </defs>
+            <g transform="translate(10, 5)">
+              <polygon points="140,40 250,140 220,140 130,68 60,140 100,140" fill="url(#lime-light)"/>
+              <path d="M 140,40 C 70,40 20,85 20,140 C 20,195 70,240 140,240 L 155,220 C 95,220 50,185 50,140 C 50,95 95,60 140,60 Z" fill="url(#lime-main)"/>
+              <polygon points="20,140 60,140 100,180 60,195 20,140" fill="url(#lime-dark)"/>
+              <polygon points="140,240 250,140 225,140 130,218 60,140 50,140" fill="url(#lime-top)"/>
+              <polygon points="130,218 225,140 250,140 155,220 140,240" fill="url(#lime-dark)"/>
+              <polygon points="210,105 250,140 210,175 180,140" fill="url(#lime-main)"/>
+              <polygon points="340,40 250,140 275,140 350,68 420,140 380,140" fill="url(#fuchsia-light)"/>
+              <path d="M 340,40 C 410,40 460,85 460,140 C 460,195 410,240 340,240 L 325,220 C 385,220 430,185 430,140 C 430,95 385,60 340,60 Z" fill="url(#fuchsia-main)"/>
+              <polygon points="460,140 420,140 380,180 420,195 460,140" fill="url(#fuchsia-dark)"/>
+              <polygon points="340,240 250,140 275,140 350,218 420,140 430,140" fill="url(#fuchsia-top)"/>
+              <polygon points="350,218 275,140 250,140 325,220 340,240" fill="url(#fuchsia-dark)"/>
+              <polygon points="290,105 250,140 290,175 320,140" fill="url(#fuchsia-main)"/>
+              <line x1="140" y1="40" x2="250" y2="140" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.7"/>
+              <line x1="340" y1="40" x2="250" y2="140" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.7"/>
+              <circle cx="250" cy="140" r="6" fill="#FFFFFF"/>
+            </g>
+          </svg>
+
+          <div class="brand-titles">
+            <h1><span class="c-fuchsia">C</span>AL <span class="c-lime">C</span>AL — INFORME EJECUTIVO 360°</h1>
+            <div class="slogan">«Precisión que genera confianza, Calidad que impulsa la industria»</div>
+            <div class="norm-tags">ISO/IEC 17025:2017 · JCGM 100 (GUM) · JCGM 101 (Monte Carlo) · ILAC-G8 · ISO 5725-2 · ISO 13528 · ITS-90</div>
+          </div>
+        </div>
+
+        <div class="hero-actions no-print">
+          <button class="btn btn-lime" onclick="window.print()">🖨️ Imprimir / Exportar PDF</button>
+          <a href="brochure.html" target="_blank" class="btn btn-outline">🎨 Brochure de Marca</a>
+          <a href="simulador/index.html" target="_blank" class="btn btn-fuchsia">🔬 Simulador GUM / MC</a>
+        </div>
+      </div>
+
+      <div class="hero-meta">
+        <div class="meta-box">
+          <div class="lbl">Fundador & Director Técnico</div>
+          <div class="val">Ing. Juan Fernando Vélez Granda</div>
+        </div>
+        <div class="meta-box">
+          <div class="lbl">Co-Creación & Arquitectura IA</div>
+          <div class="val">Nicolle (Antigravity AI)</div>
+        </div>
+        <div class="meta-box">
+          <div class="lbl">Conformidad Algorítmica (§7.11)</div>
+          <div class="val mono">47 / 47 PASS (100.00% NIST)</div>
+        </div>
+        <div class="meta-box">
+          <div class="lbl">Integración Suite Unificada 360°</div>
+          <div class="val mono">37 / 37 PASS (100.00% LIMS)</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= TARJETAS KPI DE IMPACTO ================= -->
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-num">10 <span>MÓDULOS</span></div>
+        <div class="kpi-title">Ecosistema Completo</div>
+        <div class="kpi-desc">Marca, Web, Catálogo, SGC, LIMS, Simulador, Validador v2.0 y Academia GPU.</div>
+      </div>
+      <div class="kpi-card fuchsia">
+        <div class="kpi-num">47 <span>DOCS SGC</span></div>
+        <div class="kpi-title">Expediente ISO/IEC 17025</div>
+        <div class="kpi-desc">Manual de calidad, 16 SOPs, instructivos y libro Excel maestro listos para ONAC.</div>
+      </div>
+      <div class="kpi-card cyan">
+        <div class="kpi-num">47 <span>TESTS NIST</span></div>
+        <div class="kpi-title">Software Validado (§7.11)</div>
+        <div class="kpi-desc">10 suites matemáticas verificadas con tolerancia &lt; 10⁻⁴ y hash SHA-256.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">200k <span>MC</span></div>
+        <div class="kpi-title">Monte Carlo JCGM 101</div>
+        <div class="kpi-desc">Propagación estocástica de distribuciones y validación automática de la GUM.</div>
+      </div>
+      <div class="kpi-card fuchsia">
+        <div class="kpi-num">6 <span>VIDEOS MP4</span></div>
+        <div class="kpi-title">Estudio GPU NVENC</div>
+        <div class="kpi-desc">3 Cápsulas técnicas en Full HD (16:9 y 9:16) con locución de Jorge y subtítulos.</div>
+      </div>
+    </div>
+
+    <!-- ================= SECCIÓN 1: INVENTARIO DE LOS 10 PILARES ================= -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title"><span>🏛️</span> 1. Lo Construido: Los 10 Pilares del Ecosistema CAL CAL</h2>
+        <span class="section-pill">ESTADO GLOBAL: 100% OPERATIVO Y AUDITADO</span>
+      </div>
+
+      <div class="pillars-grid">
+        <!-- Pilar 01 -->
+        <div class="pillar-card">
+          <div>
+            <div class="pillar-top">
+              <span class="pillar-code">PILAR 01 • 01_Marca/</span>
+              <span class="pillar-status">✓ 100% COMPLETADO</span>
+            </div>
+            <h3>Identidad Corporativa & Brand Guidelines 2.0</h3>
+            <ul class="pillar-list">
+              <li><strong>Paleta Cromática Oficial:</strong> Carbon Slate (<code>#1A1F24</code>), Laser Fuchsia (<code>#E01A59</code>), Precision Lime (<code>#B2D235</code>) y Cyan Metrológico (<code>#008DDA</code>).</li>
+              <li><strong>Sistema Tipográfico:</strong> <code>Kumbh Sans</code> (Titulares), <code>Public Sans</code> (Cuerpo técnico) y <code>JetBrains Mono</code> (Cifras e incertidumbre).</li>
+              <li><strong>Vectores SVG y Papelería:</strong> Isotipo infinito facetado, wordmark con diana láser, plantillas de certificado, etiquetas destructibles y mockups fotorrealistas.</li>
+            </ul>
+          </div>
+          <div class="pillar-footer">
+            <span>Activos: SVG + HTML + Mockups</span>
+            <a href="brochure.html" target="_blank" class="pillar-link">Abrir Brochure de Marca ↗</a>
+          </div>
+        </div>
+
+        <!-- Pilar 02 -->
+        <div class="pillar-card">
+          <div>
+            <div class="pillar-top">
+              <span class="pillar-code">PILAR 02 • 02_Web/</span>
+              <span class="pillar-status">✓ 100% COMPLETADO</span>
+            </div>
+            <h3>Portal Comercial B2B & Verificador Público QR</h3>
+            <ul class="pillar-list">
+              <li><strong>Plataforma Web Corporativa:</strong> Diseñada para captación B2B en sectores farmacéutico, alimentario, clínico, logístico e industrial.</li>
+              <li><strong>Cotizador Dinámico Integrado:</strong> Solicitud inmediata de calibración acreditada, calificación térmica y compra de equipos.</li>
+              <li><strong>Validador Criptográfico de Certificados:</strong> Consulta pública por código QR para verificar vigencia e integridad ante auditores.</li>
+            </ul>
+          </div>
+          <div class="pillar-footer">
+            <span>Activos: index.html + verificador online</span>
+            <a href="index.html" target="_blank" class="pillar-link">Abrir Portal Web B2B ↗</a>
+          </div>
+        </div>
+
+        <!-- Pilar 03 -->
+        <div class="pillar-card">
+          <div>
+            <div class="pillar-top">
+              <span class="pillar-code">PILAR 03 • 03_Equipos/</span>
+              <span class="pillar-status">✓ 100% COMPLETADO</span>
+            </div>
+            <h3>Catálogo de Instrumentación «Listo para Auditar»</h3>
+            <ul class="pillar-list">
+              <li><strong>Modelo Diferenciador:</strong> Venta de termómetros patrones, sondas Pt100, dataloggers y baños secos entregados con Certificado de Calibración ISO/IEC 17025 incluido.</li>
+              <li><strong>Selección Metrológica Experta:</strong> Fichas técnicas con análisis de relación de exactitud <strong>TUR ≥ 4:1</strong> y Error Máximo Permitido (EMP).</li>
+            </ul>
+          </div>
+          <div class="pillar-footer">
+            <span>Activos: Catálogo HTML + Pack Calidad Total</span>
+            <a href="index.html#equipos" class="pillar-link">Ver Catálogo de Equipos ↗</a>
+          </div>
+        </div>
+
+        <!-- Pilar 04 -->
+        <div class="pillar-card">
+          <div>
+            <div class="pillar-top">
+              <span class="pillar-code">PILAR 04 • 04_Docs/</span>
+              <span class="pillar-status">✓ 100% COMPLETADO</span>
+            </div>
+            <h3>Sistema de Gestión de Calidad ISO/IEC 17025:2017 (47 Docs)</h3>
+            <ul class="pillar-list">
+              <li><strong>Portal Maestro Documental:</strong> Compendio navegable con los 47 documentos normativos (Cláusulas 4, 5, 6, 7 y 8 de ISO/IEC 17025:2017).</li>
+              <li><strong>Manual de Calidad, 16 SOPs e Instructivos:</strong> Imparcialidad, personal, condiciones ambientales, trazabilidad, validación de métodos, incertidumbre y trabajo no conforme.</li>
+              <li><strong>Libro Maestro Automatizado:</strong> <code>Formatos_Operativos_SGC_CALCAL.xlsx</code> con fórmulas y protección operativa.</li>
+            </ul>
+          </div>
+          <div class="pillar-footer">
+            <span>Activos: Master_Documental_SGC.html + XLSX</span>
+            <a href="presentacion.html" target="_blank" class="pillar-link">Ver Estructura Normativa ↗</a>
+          </div>
+        </div>
+
+        <!-- Pilar 05 -->
+        <div class="pillar-card">
+          <div>
+            <div class="pillar-top">
+              <span class="pillar-code">PILAR 05 • 05_Marketing/</span>
+              <span class="pillar-status">✓ 100% COMPLETADO</span>
+            </div>
+            <h3>Centro de Marketing Digital & Estrategia B2B</h3>
+            <ul class="pillar-list">
+              <li><strong>Arquitectura de Buyer Personas:</strong> Mensajes clave dirigidos a Directores de Calidad, Jefes de Metrología, Gerentes de Planta y Auditores.</li>
+              <li><strong>Parrilla de Contenidos Técnicos:</strong> Guiones, copies y piezas educativas para LinkedIn, Instagram y WhatsApp Business.</li>
+            </ul>
+          </div>
+          <div class="pillar-footer">
+            <span>Activos: Centro_Marketing_CALCAL.html</span>
+            <a href="brochure.html" target="_blank" class="pillar-link">Ver Brochure Corporativo ↗</a>
+          </div>
+        </div>
+
+        <!-- Pilar 06 -->
+        <div class="pillar-card">
+          <div>
+            <div class="pillar-top">
+              <span class="pillar-code">PILAR 06 • 06_Termometria/</span>
+              <span class="pillar-status">✓ 100% COMPLETADO</span>
+            </div>
+            <h3>Módulo Especializado de Calibración Termométrica</h3>
+            <ul class="pillar-list">
+              <li><strong>Calibración por Comparación Directa:</strong> Protocolos para termómetros de resistencia de platino (RTD Pt100), termopares e indicadores digitales (-80 °C a 660 °C).</li>
+              <li><strong>Emisión Rápida de Certificados QR:</strong> Generador autónomo con curvas de corrección e incertidumbre expandida.</li>
+            </ul>
+          </div>
+          <div class="pillar-footer">
+            <span>Activos: motor_incertidumbre + Generador QR</span>
+            <a href="index.html#verificador" class="pillar-link">Ir al Verificador QR ↗</a>
+          </div>
+        </div>
+
+        <!-- Pilar 07 -->
+        <div class="pillar-card">
+          <div>
+            <div class="pillar-top">
+              <span class="pillar-code">PILAR 07 • 07_SimuladorIncertidumbre/</span>
+              <span class="pillar-status">✓ 100% COMPLETADO</span>
+            </div>
+            <h3>Simulador Interactivo GUM, Sensibilidad c_i & Monte Carlo</h3>
+            <ul class="pillar-list">
+              <li><strong>Presupuesto GUM en Tiempo Real:</strong> Deslizadores interactivos para las 6 fuentes de incertidumbre con cálculo de <code>v_eff</code> (Welch-Satterthwaite) y Diagrama de Pareto.</li>
+              <li><strong>Laboratorio Monte Carlo JCGM 101:</strong> Simulación estocástica de hasta 200,000 iteraciones en navegador con superposición de histograma vs. campana gaussiana.</li>
+              <li><strong>Laboratorio de Derivadas Parciales y Curvas CVD/ITS-90:</strong> Visualización de tangentes <code>∂T/∂R</code> y ajuste matricial WLS.</li>
+            </ul>
+          </div>
+          <div class="pillar-footer">
+            <span>Activos: Simulador Web Interactivo (3 Módulos)</span>
+            <a href="simulador/index.html" target="_blank" class="pillar-link">Abrir Simulador GUM / MC ↗</a>
+          </div>
+        </div>
+
+        <!-- Pilar 08 -->
+        <div class="pillar-card">
+          <div>
+            <div class="pillar-top">
+              <span class="pillar-code">PILAR 08 • 08_ValidacionEstadistica/</span>
+              <span class="pillar-status">✓ v2.0 (47/47 PASS)</span>
+            </div>
+            <h3>Validador Estadístico Metrológico v2.0 (ISO/IEC 17025 §7.11)</h3>
+            <ul class="pillar-list">
+              <li><strong>10 Módulos Estadísticos y Termométricos:</strong> Normalidad (Shapiro-Wilk), Atípicos (Grubbs ISO 5725-2 / ASTM E178 + Dixon Q), Homocedasticidad (Levene/Bartlett), ANOVA ISO 5725-2, Linealidad de Mandel, Baño EURAMET cg-20, Sensibilidad <code>c_i</code>, Monte Carlo JCGM 101, Curvas CVD/ITS-90 y Aseguramiento §7.7 (ISO 13528 + ILAC-G8 + Shewhart).</li>
+              <li><strong>Certificado Oficial Imprimible (REG-SOP14-02):</strong> Avalado contra 47 benchmarks del NIST y BIPM con hash SHA-256.</li>
+            </ul>
+          </div>
+          <div class="pillar-footer">
+            <span>Activos: FastAPI + Motor SciPy + Suite 47 Tests</span>
+            <a href="index.html#validador-metodos" class="pillar-link">Ver Especificación v2.0 ↗</a>
+          </div>
+        </div>
+
+        <!-- Pilar 09 -->
+        <div class="pillar-card">
+          <div>
+            <div class="pillar-top">
+              <span class="pillar-code">PILAR 09 • 08_Animacion_Incertidumbre/</span>
+              <span class="pillar-status">✓ 6 MP4 (16:9 + 9:16)</span>
+            </div>
+            <h3>Estudio de Producción Audiovisual Local por GPU & Academia</h3>
+            <ul class="pillar-list">
+              <li><strong>Pipeline 100% Propio (Sin Fricción de Terceros):</strong> Renderizado por hardware NVIDIA <code>h264_nvenc</code> a 30 FPS con voz neural oficial de <strong>Jorge (<code>es-MX-JorgeNeural</code>)</strong> y subtítulos dinámicos quemados.</li>
+              <li><strong>3 Cápsulas Técnicas Completas (Horizontal 16:9 y Vertical 9:16):</strong> (01) Incertidumbre ISO 17025, (02) Derivadas Parciales <code>c_i</code> y Curvas CVD/ITS-90, y (03) Monte Carlo JCGM 101 vs. GUM.</li>
+            </ul>
+          </div>
+          <div class="pillar-footer">
+            <span>Activos: 6 Videos MP4 Full HD + Estudio Web</span>
+            <a href="simulador/index.html" target="_blank" class="pillar-link">Explorar Academia Interactiva ↗</a>
+          </div>
+        </div>
+
+        <!-- Pilar 10 -->
+        <div class="pillar-card">
+          <div>
+            <div class="pillar-top">
+              <span class="pillar-code">PILAR 10 • calcal_lims/</span>
+              <span class="pillar-status">✓ 37/37 PASS (360°)</span>
+            </div>
+            <h3>CAL CAL LIMS Operativo & Suite Metrológica Unificada 360°</h3>
+            <ul class="pillar-list">
+              <li><strong>Gestión Integral del Laboratorio:</strong> Clientes CRM, trazabilidad de patrones, recepción de órdenes de trabajo (OT), hoja de trabajo GUM en vivo con alerta automática de outliers (§7.7) y emisión de certificados PDF/QR.</li>
+              <li><strong>Hub Central Unificado:</strong> Integra nativamente en un solo servidor FastAPI el LIMS, el Validador v2.0 (<code>/validador</code>), el Simulador (<code>/simulador</code>), el Estudio de Video (<code>/videos</code>), el SGC (<code>/sgc</code>), la Web (<code>/web</code>) y el Portal de Marca (<code>/marca</code>).</li>
+            </ul>
+          </div>
+          <div class="pillar-footer">
+            <span>Activos: Backend FastAPI + SQLite + Frontend SPA</span>
+            <a href="index.html#inicio" class="pillar-link">Volver al Portal Principal ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECCIÓN 2: RIGOR MATEMÁTICO Y CIENTÍFICO ================= -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title"><span>🧮</span> 2. Diferenciador Científico: Ingeniería Matemática de Nivel INM</h2>
+        <span class="section-pill"> TRAZABILIDAD AL SI · NIST StRD · BIPM ITS-90</span>
+      </div>
+
+      <div class="math-grid">
+        <div class="math-card">
+          <h4>1. Ley de Propagación GUM & Welch-Satterthwaite</h4>
+          <div class="formula-box">
+            u_c²(y) = Σ [ c_i · u(x_i) ]²<br>
+            ν_eff = u_c⁴(y) / Σ [ u_i⁴(y) / ν_i ]
+          </div>
+          <p>Separación rigurosa de repetibilidad Tipo A del instrumento bajo calibración (IBC) y del patrón, obteniendo el factor de cobertura exacto <code>k = t_0.9545(ν_eff)</code> mediante distribución t-Student inversa.</p>
+        </div>
+
+        <div class="math-card">
+          <h4>2. Derivadas Parciales Analíticas (Pt100 & TC)</h4>
+          <div class="formula-box">
+            c_R = ∂T/∂R = [ R₀(A + 2BT) ]⁻¹<br>
+            c_CJC = ∂T/∂T_CJC = S(T_CJC) / S(T)
+          </div>
+          <p>Transformación exacta de incertidumbres eléctricas (Ω, µV) a térmicas (°C) según IEC 60751 e IEC 60584-1, verificada automáticamente contra diferencias finitas centrales <code>O(h²)</code> con acuerdo <code>|Δ| &lt; 10⁻⁹</code>.</p>
+        </div>
+
+        <div class="math-card">
+          <h4>3. Monte Carlo JCGM 101 & Regla ILAC-G8</h4>
+          <div class="formula-box">
+            Y^(r) = f(X₁^(r), ..., X_N^(r))  [M = 200,000]<br>
+            AL = EMP - w  |  PFA = ∫ f(y) dy
+          </div>
+          <p>Propagación vectorizada de funciones de densidad (Normal, Rectangular, Triangular, U) para capturar distribuciones trapezoidales y asimétricas, acoplada al cálculo exacto del Riesgo de Falsa Aceptación (PFA ≤ 2.5%).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECCIÓN 3: POTENCIAL ESTRATÉGICO Y MONETIZACIÓN ================= -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title"><span>🚀</span> 3. Todo el Potencial de CAL CAL: 4 Motores de Crecimiento y Rentabilidad</h2>
+        <span class="section-pill">MODELO B2B + METROLOGY TECH (SaaS)</span>
+      </div>
+
+      <div class="potential-grid">
+        <div class="potential-card">
+          <div class="potential-tag">MOTOR 01 • INGRESOS RECURRENTES B2B</div>
+          <h3>Laboratorio de Calibración Acreditado (ISO/IEC 17025)</h3>
+          <p>Atención directa a la industria farmacéutica (BPM/INVIMA), alimentos y bebidas (HACCP), cadenas de frío hospitalarias y manufactura. Gracias al <strong>CAL CAL LIMS</strong>, el tiempo de emisión de un certificado se reduce de horas a minutos, entregando certificados digitales con QR verificable en tiempo real y declaración de conformidad ILAC-G8 libre de objeciones en auditoría.</p>
+        </div>
+
+        <div class="potential-card p-fuchsia">
+          <div class="potential-tag">MOTOR 02 • FLUJO DE CAJA Y MARGEN INMEDIATO</div>
+          <h3>Comercialización de Equipos «Listos para Auditar»</h3>
+          <p>Resuelve el mayor dolor del comprador industrial: comprar un equipo nuevo y no poder usarlo porque carece de certificado de calibración trazable. <strong>CAL CAL</strong> vende el instrumento asesorado según su relación <strong>TUR ≥ 4:1</strong>, pre-calibrado en el laboratorio y entregado con su etiqueta QR activa desde el día uno.</p>
+        </div>
+
+        <div class="potential-card p-cyan">
+          <div class="potential-tag">MOTOR 03 • ESCALABILIDAD REGIONAL SIN FRONTERAS (SaaS)</div>
+          <h3>Licenciamiento de Software Metrológico (Validador v2.0 & LIMS)</h3>
+          <p>Cientos de laboratorios de calibración y ensayo en Colombia, México, Perú, Chile y España enfrentan no conformidades por la cláusula <strong>§7.11 de ISO/IEC 17025</strong> (hojas de cálculo sin validar). El <strong>Validador Estadístico v2.0 de CAL CAL</strong> (con emisión del certificado <code>REG-SOP14-02</code> contra el NIST) y el LIMS pueden comercializarse bajo suscripción anual (SaaS).</p>
+        </div>
+
+        <div class="potential-card p-amber">
+          <div class="potential-tag">MOTOR 04 • AUTORIDAD DE MARCA Y CONSULTORÍA</div>
+          <h3>Academia Corporativa & Formación Técnica Automatizada</h3>
+          <p>Apalancado en el <strong>Simulador Interactivo GUM / Monte Carlo</strong> y en el <strong>Motor Local de Video por GPU</strong>, CAL CAL puede producir diplomados, entrenamientos in-company e infoproductos técnicos para ingenieros y metrólogos con velocidad y calidad visual de estudio televisivo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECCIÓN 4: HOJA DE RUTA GUARDADA EN MEMORIA ================= -->
+    <section class="section">
+      <div class="roadmap-box">
+        <div class="section-header" style="border-bottom-color: rgba(178, 210, 53, 0.25); margin-bottom: 10px;">
+          <h2 class="section-title" style="font-size: 20px;"><span>📌</span> 4. Próximos Pasos Estratégicos (Resguardados en Memoria para Futuras Sesiones)</h2>
+          <span class="section-pill">EN PAUSA POR VALIDACIÓN DEL DIRECTOR TÉCNICO</span>
+        </div>
+        <p style="font-size: 13.5px; color: #CBD5E1;">Mientras realizas la validación integral de todo lo construido, estos tres frentes quedan documentados y listos en memoria para activarlos cuando lo ordenes:</p>
+
+        <div class="roadmap-steps">
+          <div class="step-item">
+            <div class="step-num">SIGUIENTE PASO A • PRODUCCIÓN COMERCIAL</div>
+            <h4>Despliegue Web B2B & Lanzamiento</h4>
+            <p>Publicación del Portal Comercial (<code>02_Web</code>) y del Verificador Público QR en dominio corporativo, acompañado de la pauta de las 3 cápsulas MP4 en LinkedIn y WhatsApp Business.</p>
+          </div>
+          <div class="step-item">
+            <div class="step-num">SIGUIENTE PASO B • CERTIFICADOS LIMS 2.0</div>
+            <h4>Declaración ILAC-G8 Embebida en PDF</h4>
+            <p>Conectar directamente el cálculo de <code>TUR</code>, Banda de Guarda (<code>w</code>) y Riesgo de Falsa Aceptación (<code>PFA</code>) al generador de certificados PDF/HTML del LIMS (<code>certificates.py</code>).</p>
+          </div>
+          <div class="step-item">
+            <div class="step-num">SIGUIENTE PASO C • METROLOGY SaaS</div>
+            <h4>Empaquetado Multi-Laboratorio</h4>
+            <p>Habilitar modo multi-usuario en la nube para licenciar el Validador Estadístico v2.0 (§7.11) y el Simulador GUM/Monte Carlo a otros laboratorios de Iberoamérica.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PIE DE PÁGINA ================= -->
+    <footer class="footer">
+      <div><strong>CAL CAL</strong> — Calibración y Calidad · Ecosistema Metrológico Integral ISO/IEC 17025:2017</div>
+      <div>Dirección Técnica: <strong>Ing. Juan Fernando Vélez Granda</strong> &nbsp;|&nbsp; Co-Piloto & Ingeniería IA: <strong>Nicolle</strong></div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
